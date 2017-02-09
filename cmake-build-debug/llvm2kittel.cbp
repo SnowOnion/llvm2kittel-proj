@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="llvm2kittel"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake\modules\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittel">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/llvm2kittel" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittel"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittel/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/llvm2kittel" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittel/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelUtil">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelUtil.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelUtil"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelUtil/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelUtil.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelUtil/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelTransform">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelTransform.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelTransform"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelTransform/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelTransform.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelTransform/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelCore">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelCore.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelCore"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelCore/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelCore.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelCore/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="make_git_sha1">
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 make_git_sha1"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelIntTRS">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelIntTRS.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelIntTRS"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelIntTRS/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelIntTRS.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelIntTRS/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelExport">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelExport.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelExport"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelExport/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelExport.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelExport/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelAnalysis">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelAnalysis.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelAnalysis"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="llvm2kittelAnalysis/fast">
+				<Option output="/home/lee/Development/llvm2kittel-proj/cmake-build-debug/libllvm2kittelAnalysis.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lee/Development/llvm2kittel-proj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/lee/Development/llvm2kittel-proj/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 llvm2kittelAnalysis/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/lee/Development/llvm2kittel-proj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/WARN_OFF.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/WARN_ON.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/ConditionPropagator.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/HierarchyBuilder.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/InstChecker.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/LoopConditionBlocksCollector.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/LoopConditionExplicitizer.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Analysis/MemoryAnalyzer.h">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/BoundConstrainer.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/ConstraintEliminator.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/ConstraintSimplifier.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Converter.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/DivConstraintStore.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/DivRemConstraintType.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Export/ComplexityTuplePrinter.h">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Export/T2Export.h">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Export/UniformComplexityTuplePrinter.h">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/IntTRS/Constraint.h">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/IntTRS/Polynomial.h">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/IntTRS/Rule.h">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/IntTRS/Term.h">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Kittelizer.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/RemConstraintStore.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Slicer.h">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/BasicBlockSorter.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/BitcastCallEliminator.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/ConstantExprEliminator.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/EagerInliner.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/ExtremeInliner.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/Hoister.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/InstNamer.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/Mem2Reg.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/NondefFactory.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Transform/StrengthIncreaser.h">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Util/CommandLine.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Util/Ref.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Util/Version.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Util/gmp_kittel.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/include/llvm2kittel/Util/quadruple.h">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/ConditionPropagator.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/HierarchyBuilder.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/InstChecker.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/LoopConditionBlocksCollector.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/LoopConditionExplicitizer.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Analysis/MemoryAnalyzer.cpp">
+			<Option target="llvm2kittelAnalysis"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/BoundConstrainer.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/ConstraintEliminator.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/ConstraintSimplifier.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/Converter.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/Kittelizer.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Core/Slicer.cpp">
+			<Option target="llvm2kittelCore"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Export/ComplexityTuplePrinter.cpp">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Export/T2Export.cpp">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Export/UniformComplexityTuplePrinter.cpp">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/IntTRS/Constraint.cpp">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/IntTRS/Polynomial.cpp">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/IntTRS/Rule.cpp">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/IntTRS/Term.cpp">
+			<Option target="llvm2kittelIntTRS"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/BasicBlockSorter.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/BitcastCallEliminator.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/ConstantExprEliminator.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/EagerInliner.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/ExtremeInliner.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/Hoister.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/InstNamer.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/Mem2Reg.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Transform/StrengthIncreaser.cpp">
+			<Option target="llvm2kittelTransform"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Util/CommandLine.cpp">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Util/gmp_kittel.cpp">
+			<Option target="llvm2kittelUtil"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/tools/GitSHA1.h">
+			<Option target="llvm2kittel"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/tools/llvm2kittel.cpp">
+			<Option target="llvm2kittel"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/kittel-llvm.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/kittel-llvm-bounded.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/cmake/modules/FindGMP.cmake">
+			<Option virtualFolder="CMake Files\cmake\modules\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

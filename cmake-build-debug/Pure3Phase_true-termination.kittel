@@ -1,0 +1,8 @@
+///*** 1_main ***///
+eval_main_start() -> eval_main_bb0_in()
+eval_main_bb0_in() -> eval_main_bb1_in(nondef.1, nondef.0, nondef.2)
+eval_main_bb1_in(v_y.0, v_x.0, v_z.0) -> eval_main_bb2_in(v_y.0, v_x.0, v_z.0) [ v_x.0 >= 0 ]
+eval_main_bb1_in(v_y.0, v_x.0, v_z.0) -> eval_main_bb3_in() [ v_x.0 < 0 ]
+eval_main_bb2_in(v_y.0, v_x.0, v_z.0) -> eval_main_bb1_in(v_y.0 + v_z.0, v_x.0 + v_y.0, v_z.0 - 1)
+eval_main_bb2_in(v_y.0, v_x.0, v_z.0) -> eval_main_bb1_in(v_y.0 + v_z.0, v_x.0 + v_z.0, v_z.0 - 1)
+eval_main_bb3_in() -> eval_main_stop()
