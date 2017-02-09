@@ -1,6 +1,12 @@
 project(llvm2kittel)
 cmake_minimum_required(VERSION 2.8)
 
+set(CMAKE_CXX_FLAGS "-O0") # lee, to see variable value when debugging
+# ref https://fedetft.wordpress.com/2009/12/21/cmake-part-2-compiler-flags/
+
+## no! this setting itself can't avoid "<value optimized out>" in CLion
+## I changed CLion toolchain setting, use LLDB instead of GDB. Then no more "<value optimized out>"！
+
 set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"

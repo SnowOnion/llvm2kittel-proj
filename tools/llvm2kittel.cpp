@@ -710,6 +710,21 @@ int main(int argc, char *argv[])
             std::list<ref<Rule> > kittelizedRules = kittelize(condensedRules, smtSolver);
             Slicer slicer(curr, converter.getPhiVariables());
             std::list<ref<Rule> > slicedRules;
+
+            std::cout<<"====Outputting condensedRules:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = condensedRules.begin(), e = condensedRules.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====Outputting condensedRules done."<<std::endl;
+
+            std::cout<<"====Outputting kittelizedRules:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = kittelizedRules.begin(), e = kittelizedRules.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====Outputting kittelizedRules done."<<std::endl;
+
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {

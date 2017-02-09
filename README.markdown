@@ -20,6 +20,17 @@ llvm2KITTeL 是用 CMake 组织起来的项目。为了看清代码的流程呢�
 + 编译成功则应该看到 llvm2kittel 执行并报出缺少输入文件的错误。在 Run 菜单 - Edit Configuration 配置一个带命令行参数的 run，[如图](doc/Pure3Phase_true-termination.bc.png) 。这个 Pure3Phase_true-termination.bc 在 [cmake-build-debug](cmake-build-debug) 目录下。
 + 执行和断点调试的样子见 [doc](doc)
 
+## 啊
+
+```
+➜  cmake-build-debug git:(master) ✗ clang -S -emit-llvm -o power.ll -c power.c -O3
+➜  cmake-build-debug git:(master) ✗ clang -emit-llvm -o power.bc -c power.c -O3
+
+-O0 没有 phi, -O3 有 phi。
+
+```
+
+
 ## Author
 
 Stephan Falke, Jeroen Ketema, Marc Brockschmidt
