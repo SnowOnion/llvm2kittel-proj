@@ -36,6 +36,13 @@
 #include "llvm2kittel/Util/CommandLine.h"
 #include "llvm2kittel/Util/Version.h"
 
+
+// lee 20170209
+#include "llvm2kittel/IntTRS/Term.h"
+#include "llvm2kittel/IntTRS/Polynomial.h"
+#include "llvm2kittel/IntTRS/Constraint.h"
+
+
 // llvm includes
 #include "WARN_OFF.h"
 #if LLVM_VERSION < VERSION(3, 5)
@@ -725,8 +732,51 @@ int main(int argc, char *argv[])
             }
             std::cout<<"====Outputting kittelizedRules done."<<std::endl;
 
-            // TODO 插入自己构造的 kittlized rule!
+            // TODO 插入自己构造的 kittelized rule!
+//            std::list<ref<Rule> > myKittelizedRules;
+////            std::list<ref<Polynomial> > lhp({Polynomial::create("x")});
+//////            ref<Polynomial> p1=Polynomial::create("x");
+//////            lhp.push_back(p1);
+////            std::list<ref<Polynomial> > rhp;
+////            ref<Polynomial> p2=Polynomial::create("y");
+////            rhp.push_back(p2);
+////            ref<Rule> rule=Rule::create(Term::create("f",lhp),Term::create("g",rhp),True::create());
+//
+//            ref<Rule> rule=Rule::create(
+//                    Term::create("f",std::list<ref<Polynomial> >({Polynomial::create("x")})),
+//                    Term::create("g",std::list<ref<Polynomial> >({Polynomial::create("y")})),
+//                    True::create());
 
+            std::list<ref<Rule> > myKittelizedRules({
+                    Rule::create(
+                            Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+                            True::create())
+            });
+
+            // ref<T> 重载了 operator ->
+            std::cout<<"====!!!! Outputting myKittelizedRules:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = myKittelizedRules.begin(), e = myKittelizedRules.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====!!!! Outputting myKittelizedRules done."<<std::endl;
 
             /**
              * 所以，做slice需要：

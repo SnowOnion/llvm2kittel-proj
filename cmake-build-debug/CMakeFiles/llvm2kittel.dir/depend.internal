@@ -25,6 +25,7 @@ CMakeFiles/llvm2kittel.dir/tools/llvm2kittel.cpp.o
  ../include/llvm2kittel/IntTRS/Constraint.h
  ../include/llvm2kittel/IntTRS/Polynomial.h
  ../include/llvm2kittel/IntTRS/Rule.h
+ ../include/llvm2kittel/IntTRS/Term.h
  ../include/llvm2kittel/Kittelizer.h
  ../include/llvm2kittel/RemConstraintStore.h
  ../include/llvm2kittel/Slicer.h

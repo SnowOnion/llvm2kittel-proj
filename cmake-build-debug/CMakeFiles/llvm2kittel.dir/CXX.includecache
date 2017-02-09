@@ -340,6 +340,20 @@ map
 string
 -
 
+../include/llvm2kittel/IntTRS/Term.h
+llvm2kittel/Util/Ref.h
+../include/llvm2kittel/IntTRS/llvm2kittel/Util/Ref.h
+list
+-
+map
+-
+set
+-
+string
+-
+vector
+-
+
 ../include/llvm2kittel/Kittelizer.h
 llvm2kittel/ConstraintEliminator.h
 ../include/llvm2kittel/llvm2kittel/ConstraintEliminator.h
@@ -681,6 +695,12 @@ llvm2kittel/Util/CommandLine.h
 /home/lee/Development/llvm2kittel-proj/tools/llvm2kittel/Util/CommandLine.h
 llvm2kittel/Util/Version.h
 /home/lee/Development/llvm2kittel-proj/tools/llvm2kittel/Util/Version.h
+llvm2kittel/IntTRS/Term.h
+/home/lee/Development/llvm2kittel-proj/tools/llvm2kittel/IntTRS/Term.h
+llvm2kittel/IntTRS/Polynomial.h
+/home/lee/Development/llvm2kittel-proj/tools/llvm2kittel/IntTRS/Polynomial.h
+llvm2kittel/IntTRS/Constraint.h
+/home/lee/Development/llvm2kittel-proj/tools/llvm2kittel/IntTRS/Constraint.h
 WARN_OFF.h
 /home/lee/Development/llvm2kittel-proj/tools/WARN_OFF.h
 llvm/Assembly/PrintModulePass.h
