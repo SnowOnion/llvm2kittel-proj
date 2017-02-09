@@ -724,7 +724,7 @@ int main(int argc, char *argv[])
                 slicedRules = kittelize(addBoundConstraints(slicedRules, converter.getBitwidthMap(), unsignedEncoding), smtSolver);
             }
             if (debug) {
-                allRules.insert(allRules.end(), rules.begin(), rules.end());３３
+                allRules.insert(allRules.end(), rules.begin(), rules.end());
                 allCondensedRules.insert(allCondensedRules.end(), condensedRules.begin(), condensedRules.end());
                 allKittelizedRules.insert(allKittelizedRules.end(), kittelizedRules.begin(), kittelizedRules.end());
             }
