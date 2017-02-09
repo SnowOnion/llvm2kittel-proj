@@ -63,8 +63,8 @@ CMAKE_BINARY_DIR = /home/lee/Development/llvm2kittel-proj/cmake-build-debug
 # Target rules for target CMakeFiles/llvm2kittel.dir
 
 # All Build rule for target.
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelUtil.dir/all
 CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelTransform.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelUtil.dir/all
 CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelCore.dir/all
 CMakeFiles/llvm2kittel.dir/all: CMakeFiles/make_git_sha1.dir/all
 CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelIntTRS.dir/all

@@ -725,6 +725,16 @@ int main(int argc, char *argv[])
             }
             std::cout<<"====Outputting kittelizedRules done."<<std::endl;
 
+            // TODO 插入自己构造的 kittlized rule!
+
+
+            /**
+             * 所以，做slice需要：
+             * kittelizedRules
+             * slicer
+             *
+             */
+
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {
@@ -752,6 +762,14 @@ int main(int argc, char *argv[])
                 std::set<std::string> tmpLHSs = converter.getComplexityLHSs();
                 complexityLHSs.insert(tmpLHSs.begin(), tmpLHSs.end());
             }
+
+            std::cout<<"====Outputting slicedRules:"<<std::endl;
+//            for (std::list<ref<Rule> >::iterator i = slicedRules.begin(), e = slicedRules.end(); i != e; ++i) {
+            for (auto i = slicedRules.begin(), e = slicedRules.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====Outputting slicedRules done."<<std::endl;
         }
         if (debug) {
             std::cout << "========================================" << std::endl;
