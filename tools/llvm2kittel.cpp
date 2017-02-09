@@ -724,7 +724,7 @@ int main(int argc, char *argv[])
                 slicedRules = kittelize(addBoundConstraints(slicedRules, converter.getBitwidthMap(), unsignedEncoding), smtSolver);
             }
             if (debug) {
-                allRules.insert(allRules.end(), rules.begin(), rules.end());
+                allRules.insert(allRules.end(), rules.begin(), rules.end());３３
                 allCondensedRules.insert(allCondensedRules.end(), condensedRules.begin(), condensedRules.end());
                 allKittelizedRules.insert(allKittelizedRules.end(), kittelizedRules.begin(), kittelizedRules.end());
             }
@@ -758,7 +758,7 @@ int main(int argc, char *argv[])
         }
         if (complexityTuples) {
             printComplexityTuples(allSlicedRules, complexityLHSs, std::cout);
-        } else if (uniformComplexityTuples) {
+        } else if (uniformComplexityTuples) { // “平均复杂程度”的元组……？
             std::ostringstream startfun;
             startfun << "eval_" << getSccName(scc) << "_start";
             std::string name = startfun.str();
