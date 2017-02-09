@@ -20,6 +20,26 @@ llvm2KITTeL 是用 CMake 组织起来的项目。为了看清代码的流程呢�
 + 编译成功则应该看到 llvm2kittel 执行并报出缺少输入文件的错误。在 Run 菜单 - Edit Configuration 配置一个带命令行参数的 run，[如图](doc/Pure3Phase_true-termination.bc.png) 。这个 Pure3Phase_true-termination.bc 在 [cmake-build-debug](cmake-build-debug) 目录下。
 + 执行和断点调试的样子见 [doc](doc)
 
+##
+对 [power.c](cmake-build-debug/power.c)的转换：
+
+```
+====Outputting kittelizedRules:
+eval_main_start(v_y.0, v_r.0, v_1) -> eval_main_bb0_in(v_y.0, v_r.0, v_1)
+eval_main_bb0_in(v_y.0, v_r.0, v_1) -> eval_main_bb1_in(nondef.0, 1, v_1)
+eval_main_bb1_in(v_y.0, v_r.0, v_1) -> eval_main_bb1_in(v_y.0 - 1, 0, v_y.0 - 1) [ v_y.0 > 0 ]
+eval_main_bb1_in(v_y.0, v_r.0, v_1) -> eval_main_bb2_in(v_y.0, v_r.0, v_y.0 - 1) [ v_y.0 <= 0 ]
+eval_main_bb2_in(v_y.0, v_r.0, v_1) -> eval_main_stop(v_y.0, v_r.0, v_1)
+====Outputting kittelizedRules done.
+====Outputting slicedRules:
+eval_main_start() -> eval_main_bb0_in()
+eval_main_bb0_in() -> eval_main_bb1_in(nondef.0)
+eval_main_bb1_in(v_y.0) -> eval_main_bb1_in(v_y.0 - 1) [ v_y.0 > 0 ]
+eval_main_bb1_in(v_y.0) -> eval_main_bb2_in() [ v_y.0 <= 0 ]
+eval_main_bb2_in() -> eval_main_stop()
+====Outputting slicedRules done.
+```
+
 ## 啊
 
 ```
