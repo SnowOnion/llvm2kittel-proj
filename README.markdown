@@ -40,6 +40,42 @@ eval_main_bb2_in() -> eval_main_stop()
 ====Outputting slicedRules done.
 ```
 
+## 现在可以用API构造一组重写规则了:
+```
+std::list<ref<Rule> > myKittelizedRules({
+    Rule::create(
+            Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            True::create())
+    ,Rule::create(
+            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+            True::create())
+    ,Rule::create(
+            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Gtr))
+    ,Rule::create(
+            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Leq))
+    ,Rule::create(
+            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            Term::create("eval_main_stop",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+            True::create())
+});
+```
+
+这个 myKittelizedRules 完全模仿了 llvm2kittel 生成的 kittelizedRules。
+
+可喜的是，把 myKittelizedRules 喂给原来的 slicer，能得到预期的化简结果。
+
+但是构造 slicer （llvm2kittel.cpp [718行](https://github.com/SnowOnion/llvm2kittel-proj/blob/d2a5c9eeb9b93f14c1c6d4ea2080518a50a665e6/tools/llvm2kittel.cpp#L718)）
+```
+Slicer slicer(curr, converter.getPhiVariables());
+```
+需要指向该函数的指针 `curr` 以及之前转换过程中得到的 phi 语句中的变量 `converter.getPhiVariables()`。
+
 ## 啊
 
 ```
