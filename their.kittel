@@ -1,0 +1,5 @@
+eval_main_start(v_y.0, v_r.0, v_1) -> eval_main_bb0_in(v_y.0, v_r.0, v_1)
+eval_main_bb0_in(v_y.0, v_r.0, v_1) -> eval_main_bb1_in(nondef.0, 1, v_1)
+eval_main_bb1_in(v_y.0, v_r.0, v_1) -> eval_main_bb1_in(v_y.0 - 1, 0, v_y.0 - 1) [ v_y.0 > 0 ]
+eval_main_bb1_in(v_y.0, v_r.0, v_1) -> eval_main_bb2_in(v_y.0, v_r.0, v_y.0 - 1) [ v_y.0 <= 0 ]
+eval_main_bb2_in(v_y.0, v_r.0, v_1) -> eval_main_stop(v_y.0, v_r.0, v_1)
