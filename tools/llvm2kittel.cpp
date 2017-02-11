@@ -42,6 +42,9 @@
 #include "llvm2kittel/IntTRS/Polynomial.h"
 #include "llvm2kittel/IntTRS/Constraint.h"
 
+using std::cout;
+using std::endl;
+
 
 // llvm includes
 #include "WARN_OFF.h"
@@ -715,8 +718,39 @@ int main(int argc, char *argv[])
             std::list<ref<Rule> > rules = converter.getRules();
             std::list<ref<Rule> > condensedRules = converter.getCondensedRules();
             std::list<ref<Rule> > kittelizedRules = kittelize(condensedRules, smtSolver);
-            Slicer slicer(curr, converter.getPhiVariables());
+            auto phi=converter.getPhiVariables();
+            cout<<"====Outputting phi s:"<<endl;
+            for(auto i=phi.begin(),e=phi.end();i!=e;++i){
+                cout<<*i<<endl;
+            }
+            cout<<"====Outputting phi s DONE."<<endl;
+            cout<<"====Outputting curr args:"<<endl;
+            for(auto i=curr->arg_begin(),e=curr->arg_end();i!=e;++i){
+                llvm::Argument *arg = &*i;
+                cout<<arg->getName().str()<<endl;
+            }
+            cout<<"====Outputting curr args DONE."<<endl;
+
+            std::set<std::string> phiEmpty;
+
+            // 2.6古董教程 http://releases.llvm.org/2.6/docs/tutorial/JITTutorial1.html
+            // 现代教程 http://releases.llvm.org/3.5.0/docs/tutorial/LangImpl3.html#function-code-generation
+            llvm::LLVMContext& globalContext = llvm::getGlobalContext();
+            llvm::Module* mod = new llvm::Module("test", globalContext);
+            llvm::FunctionType* ft = llvm::FunctionType::get(llvm::Type::getVoidTy(globalContext), false);
+            llvm::Function* currEmpty=llvm::Function::Create(ft,llvm::Function::CommonLinkage);
+
+            Slicer slicer(currEmpty, phiEmpty);
+            //悍然替换 phi->phiEmpty // 很高兴，slice 依然可用！
+            //悍然替换 curr->currEmpty // 很高兴，slice 依然可用！am
             std::list<ref<Rule> > slicedRules;
+
+            std::cout<<"====Outputting rules:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====Outputting rules done."<<std::endl;
 
             std::cout<<"====Outputting condensedRules:"<<std::endl;
             for (std::list<ref<Rule> >::iterator i = condensedRules.begin(), e = condensedRules.end(); i != e; ++i) {
@@ -770,6 +804,104 @@ int main(int argc, char *argv[])
                             True::create())
             });
 
+            // slice 会去掉多余的变量
+            std::list<ref<Rule> > myKittelizedRulesWithMoreVar({
+                    Rule::create(
+                            Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            True::create())
+                    ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("baka")})),
+                            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Gtr))
+                    ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("baka")})),
+                            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Leq))
+                    ,Rule::create(
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            Term::create("eval_main_stop",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
+                            True::create())
+                                                    });
+
+            // slice 不会去掉 more rule 的。
+            std::list<ref<Rule> > myKittelizedRulesWithMoreRule({
+                                                                       Rule::create(
+                                                                               Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                                                                               Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                                                                               True::create())
+                                                                       ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("weird_state",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            True::create())
+                                                                        ,Rule::create(
+                            Term::create("weird_state",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
+                            True::create())
+                                                                       ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Gtr))
+                                                                       ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Leq))
+                                                                       ,Rule::create(
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            Term::create("eval_main_stop",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
+                            True::create())
+                                                               });
+            // 变量同构地改名，仍然能slice…… 所以phi根本没用？ // 猜对了
+            std::list<ref<Rule> > myKittelizedRulesIsoVar({
+                                                                  Rule::create(
+                                                                          Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                                                                          Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                                                                          True::create())
+                                                                  ,Rule::create(
+                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("ichi")})),
+                            True::create())
+                                                                  ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("yyy")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("yyy")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("yyy"),Polynomial::null,Atom::AType::Gtr))
+                                                                  ,Rule::create(
+                            Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("yyy")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("yyy"),Polynomial::null,Atom::AType::Leq))
+                                                                  ,Rule::create(
+                            Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("eval_main_stop",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            True::create())
+                                                          });
+            // 状态(还是叫函数？)同构地改名，不能slice了！得到slicedRules为空
+            std::list<ref<Rule> > myKittelizedRulesIsoVarAndFunc({
+                                                                         Rule::create(
+                                                                                 Term::create("state0",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                                                                                 Term::create("state1",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                                                                                 True::create())
+                                                                         ,Rule::create(
+                            Term::create("state1",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("state2",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("ichi")})),
+                            True::create())
+                                                                         ,Rule::create(
+                            Term::create("state2",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("state2",std::list<ref<Polynomial> >({Polynomial::create("yyy")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("yyy")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("yyy"),Polynomial::null,Atom::AType::Gtr))
+                                                                         ,Rule::create(
+                            Term::create("state2",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("state3",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("yyy")->sub(Polynomial::one)})),
+                            Atom::create(Polynomial::create("yyy"),Polynomial::null,Atom::AType::Leq))
+                                                                         ,Rule::create(
+                            Term::create("state3",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            Term::create("state4",std::list<ref<Polynomial> >({Polynomial::create("yyy"),Polynomial::create("rrr"),Polynomial::create("ichi")})),
+                            True::create())
+                                                                 });
+
             // ref<T> 重载了 operator ->
             std::cout<<"====!!!! Outputting myKittelizedRules:"<<std::endl;
             for (std::list<ref<Rule> >::iterator i = myKittelizedRules.begin(), e = myKittelizedRules.end(); i != e; ++i) {
@@ -777,6 +909,34 @@ int main(int argc, char *argv[])
                 std::cout << tmp->toKittelString() << std::endl;
             }
             std::cout<<"====!!!! Outputting myKittelizedRules done."<<std::endl;
+
+            std::cout<<"====!!!! Outputting myKittelizedRulesWithMoreRule:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = myKittelizedRulesWithMoreRule.begin(), e = myKittelizedRulesWithMoreRule.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====!!!! Outputting myKittelizedRulesWithMoreRule done."<<std::endl;
+
+            std::cout<<"====!!!! Outputting myKittelizedRulesWithMoreVar:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = myKittelizedRulesWithMoreVar.begin(), e = myKittelizedRulesWithMoreVar.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====!!!! Outputting myKittelizedRulesWithMoreVar done."<<std::endl;
+
+            std::cout<<"====!!!! Outputting myKittelizedRulesIsoVar:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = myKittelizedRulesIsoVar.begin(), e = myKittelizedRulesIsoVar.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====!!!! Outputting myKittelizedRulesIsoVar done."<<std::endl;
+
+            std::cout<<"====!!!! Outputting myKittelizedRulesIsoVarAndFunc:"<<std::endl;
+            for (std::list<ref<Rule> >::iterator i = myKittelizedRulesIsoVarAndFunc.begin(), e = myKittelizedRulesIsoVarAndFunc.end(); i != e; ++i) {
+                ref<Rule> tmp = *i;
+                std::cout << tmp->toKittelString() << std::endl;
+            }
+            std::cout<<"====!!!! Outputting myKittelizedRulesIsoVarAndFunc done."<<std::endl;
 
             /**
              * 所以，做slice需要：
@@ -788,10 +948,11 @@ int main(int argc, char *argv[])
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {
-                slicedRules = slicer.sliceUsage(myKittelizedRules); // 汗然替换
+                slicedRules = slicer.sliceUsage(myKittelizedRulesIsoVar); // 汗然替换
                 slicedRules = slicer.sliceConstraint(slicedRules);
                 slicedRules = slicer.sliceDefined(slicedRules);
-                slicedRules = slicer.sliceStillUsed(slicedRules, conservativeSlicing);
+                cout<<"conservativeSlicing is "<<conservativeSlicing<<endl;
+                slicedRules = slicer.sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
                 slicedRules = slicer.sliceTrivialNondefConstraints(slicedRules);
                 slicedRules = slicer.sliceDuplicates(slicedRules);
             }

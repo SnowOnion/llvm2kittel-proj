@@ -38,7 +38,7 @@
 #include <cstdlib>
 
 #define SMALL_VECTOR_SIZE 8
-
+// onlyMultiPredIsControl 默认 false
 Converter::Converter(const llvm::Type *boolType, bool assumeIsControl, bool selectIsControl, bool onlyMultiPredIsControl, bool boundedIntegers, bool unsignedEncoding, bool onlyLoopConditions, DivRemConstraintType divisionConstraintType, bool bitwiseConditions, bool complexityTuples)
   : m_entryBlock(NULL),
     m_boolType(boolType),
@@ -194,7 +194,7 @@ std::list<ref<Rule> > Converter::getRules()
 {
     return m_rules;
 }
-
+// input de facto: m_rules, m_controlPoints, m_vars
 std::list<ref<Rule> > Converter::getCondensedRules()
 {
     std::list<ref<Rule> > good;
@@ -261,11 +261,18 @@ std::string Converter::getEval(unsigned int i)
     return tmp.str();
 }
 
+/**
+ * 顺便向 m_controlPoints 里面塞 inout=="in" 的 basic block 名。
+ * @param bb
+ * @param inout
+ * @return
+ */
 std::string Converter::getEval(llvm::BasicBlock *bb, std::string inout)
 {
     std::ostringstream tmp;
     tmp << "eval_" << bb->getName().str() << '_' << inout;
     std::string res = tmp.str();
+    // 目前呢，onlyMultiPredIsControl 总是 false。所以这句等价于 inout == "in"
     if (inout == "in" && (!m_onlyMultiPredIsControl || bb->getUniquePredecessor() == NULL)) {
         m_controlPoints.insert(res);
     }

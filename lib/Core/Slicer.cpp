@@ -76,6 +76,13 @@ std::set<unsigned int> Slicer::getSet(unsigned int size)
     return res;
 }
 
+/**
+ * 还有输入：
+ * m_F->arg_begin() // Keep all inputs of integer type
+ * llvm::Module *module = m_F->getParent();  // keep all globals of integer type
+ * @param rules
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 {
     if (rules.empty()) {

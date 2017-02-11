@@ -86,6 +86,25 @@ Slicer slicer(curr, converter.getPhiVariables());
 
 ```
 
+想过用 kittel 里的 parse 模块（它肯定要parse的吧），但是似乎是 OCaml 写的，残念。 https://github.com/s-falke/kittel-koat/search?utf8=%E2%9C%93&q=parse
+
+## 2017-2-10实验
+
+myKittelizedRulesWithMoreRule, slice 不会去掉 more rule。那是 condense 的活儿。
+
+myKittelizedRulesWithMoreVar, slice 会去掉那个 baka 变量！本来就是做这个事的……
+
+myKittelizedRulesIsoVar // 变量同构地改名，仍然能slice
+
+myKittelizedRulesIsoVarAndFunc // 状态(还是叫函数？)同构地改名，不能slice了！得到slicedRules为空
+
+`slicedRules = slicer.sliceStillUsed(slicedRules, conservativeSlicing);` // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来用不到 m_phiVars。slicer 里唯一用到 m_phiVars 的就是 sliceStillUsed 函数。所以，构造 slicer 时传入的 phiVars 没用……
+
+在找 Converter.m_controlPoints 被那些地方修改时，发现
+`void Converter::visitCallInst(llvm::CallInst &I)`
+和
+`void Converter::visitSelectInst(llvm::SelectInst &I)``
+都没有被使用…… 什么心态
 
 ## Author
 
