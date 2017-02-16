@@ -83,7 +83,7 @@ std::set<unsigned int> Slicer::getSet(unsigned int size)
 /**
  * 还有输入：
  * m_F->arg_begin() // Keep all inputs of integer type
- * llvm::Module *module = m_F->getParent()->;  // keep all globals of integer type
+ * llvm::Module *module = m_F->getParent()->global_begin();  // keep all globals of integer type
  *
  * @param rules
  * @return
@@ -268,13 +268,13 @@ std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
         std::list<ref<Polynomial> >::iterator ri = rhsArgs.begin();
         for (std::vector<std::string>::iterator it = vars.begin(), et = vars.end(); it != et; ++it, ++ri) {
             std::string lvar = *it;
-            unsigned int lvarIdx = getIdxVar(lvar);
+            unsigned int lvarIdx = m_varIdx.find(lvar)->second;
             ref<Polynomial> inRhs = *ri;
             std::set<std::string> tmp;
             inRhs->addVariablesToSet(tmp);
             for (std::set<std::string>::iterator ii = tmp.begin(), ee = tmp.end(); ii != ee; ++ii) {
                 if (!isNondef(*ii)) {
-                    m_depends[lvarIdx + m_numVars * getIdxVar(*ii)] = true;
+                    m_depends[lvarIdx + m_numVars * m_varIdx.find(*ii)->second] = true;
                 }
             }
         }
@@ -305,7 +305,7 @@ std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
         if (isNondef(v)) {
             continue;
         }
-        unsigned int vidx = getIdxVar(v);
+        unsigned int vidx = m_varIdx.find(v)->second;
         for (unsigned int ii = 0; ii < m_numVars; ++ii) {
             if (m_depends[vidx + m_numVars * ii]) {
                 notNeeded.erase(ii);
@@ -952,16 +952,16 @@ std::string Slicer::getVar(unsigned int idx)
     }
 }
 
-unsigned int Slicer::getIdxVar(std::string v)
-{
-    std::map<std::string, unsigned int>::iterator found = m_varIdx.find(v);
-    if (found == m_varIdx.end()) {
-        std::cerr << "Internal error in Slicer::getIdxVar (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
-        exit(123);
-    } else {
-        return found->second;
-    }
-}
+//unsigned int Slicer::getIdxVar(std::string v)
+//{
+//    std::map<std::string, unsigned int>::iterator found = m_varIdx.find(v);
+//    if (found == m_varIdx.end()) {
+//        std::cerr << "Internal error in Slicer::getIdxVar (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
+//        exit(123);
+//    } else {
+//        return found->second;
+//    }
+//}
 
 bool Slicer::isRecursiveCall(std::string f)
 {
