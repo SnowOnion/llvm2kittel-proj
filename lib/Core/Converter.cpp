@@ -38,7 +38,13 @@
 #include <cstdlib>
 
 #define SMALL_VECTOR_SIZE 8
+
+
+using std::cout;
+using std::endl;
+
 // onlyMultiPredIsControl 默认 false
+// selectIsControl 默认 false
 Converter::Converter(const llvm::Type *boolType, bool assumeIsControl, bool selectIsControl, bool onlyMultiPredIsControl, bool boundedIntegers, bool unsignedEncoding, bool onlyLoopConditions, DivRemConstraintType divisionConstraintType, bool bitwiseConditions, bool complexityTuples)
   : m_entryBlock(NULL),
     m_boolType(boolType),
@@ -194,9 +200,100 @@ std::list<ref<Rule> > Converter::getRules()
 {
     return m_rules;
 }
-// input de facto: m_rules, m_controlPoints, m_vars
+
+std::list<ref<Rule> > Converter::purifiedGetCondensedRules(
+        std::list<ref<Rule>> m_rules,
+        std::set<std::string> m_controlPoints,
+        std::list<std::string> m_vars
+){
+//    printRules(m_rules,"m_rules when getCondensedRules()");
+//    cout<<"\tm_controlPoints"<<endl;
+//    for(auto i=m_controlPoints.begin(),e=m_controlPoints.end();i!=e;++i){
+//        cout<<*i<<endl;
+//    }
+//    cout<<"\tm_controlPoints done"<<endl;
+//    cout<<"\tm_vars"<<endl;
+//    for(auto i=m_vars.begin(),e=m_vars.end();i!=e;++i){
+//        cout<<*i<<endl;
+//    }
+//    cout<<"\tm_vars done"<<endl;
+
+
+    std::list<ref<Rule> > good;
+    std::list<ref<Rule> > junk;
+    std::list<ref<Rule> > res;
+    for (std::list<ref<Rule> >::iterator i = m_rules.begin(), e = m_rules.end(); i != e; ++i) {
+        ref<Rule> rule = *i;
+        std::string f = rule->getLeft()->getFunctionSymbol();
+        if (m_controlPoints.find(f) != m_controlPoints.end()) {
+            good.push_back(rule);
+        } else {
+            junk.push_back(rule);
+        }
+    }
+    for (std::list<ref<Rule> >::iterator i = good.begin(), e = good.end(); i != e; ++i) {
+        ref<Rule> rule = *i;
+        std::vector<ref<Rule> > todo;
+        todo.push_back(rule);
+        while (!todo.empty()) {
+            ref<Rule> r = *todo.begin();
+            todo.erase(todo.begin());
+            ref<Term> rhs = r->getRight();
+            std::string f = rhs->getFunctionSymbol();
+            if (m_controlPoints.find(f) != m_controlPoints.end()) {
+                res.push_back(r);
+            } else {
+                std::list<ref<Rule> > newtodo;
+                for (std::list<ref<Rule> >::iterator ii = junk.begin(), ee = junk.end(); ii != ee; ++ii) {
+                    ref<Rule> junkrule = *ii;
+                    if (junkrule->getLeft()->getFunctionSymbol() == f) {
+                        std::map<std::string, ref<Polynomial> > subby;
+                        std::list<ref<Polynomial> > rhsargs = rhs->getArgs();
+                        std::list<ref<Polynomial> >::iterator ai = rhsargs.begin();
+                        for (std::list<std::string>::iterator vi = m_vars.begin(), ve = m_vars.end(); vi != ve; ++vi, ++ai) {
+                            subby.insert(std::make_pair(*vi, *ai));
+                        }
+                        ref<Rule> newRule = Rule::create(r->getLeft(), junkrule->getRight()->instantiate(&subby), Operator::create(r->getConstraint(), junkrule->getConstraint()->instantiate(&subby), Operator::And));
+                        newtodo.push_back(newRule);
+                    }
+                }
+                todo.insert(todo.begin(), newtodo.begin(), newtodo.end());
+            }
+        }
+    }
+    return res;
+}
+
+//void printRules(std::list<ref<Rule> > rules,std::string message="-"){
+//    std::cout<<"====Outputting "<<message<<":"<<std::endl;
+//    for (auto i = rules.begin(), e = rules.end(); i != e; ++i) {
+//        std::cout << (*i)->toKittelString() << std::endl;
+//    }
+//    std::cout<<"====Outputting "<<message<<" done."<<std::endl;
+//}
+
+void printRules(std::list<ref<Rule> > rules,std::string message="-");
+/**
+ * input de facto:
+ * m_rules 遍历
+ * m_controlPoints .find(rule的左手边的函数符号)
+ * m_vars 遍历
+ */
 std::list<ref<Rule> > Converter::getCondensedRules()
 {
+    printRules(m_rules,"m_rules when getCondensedRules()");
+    cout<<"\tm_controlPoints"<<endl;
+    for(auto i=m_controlPoints.begin(),e=m_controlPoints.end();i!=e;++i){
+        cout<<*i<<endl;
+    }
+    cout<<"\tm_controlPoints done"<<endl;
+    cout<<"\tm_vars"<<endl;
+    for(auto i=m_vars.begin(),e=m_vars.end();i!=e;++i){
+        cout<<*i<<endl;
+    }
+    cout<<"\tm_vars done"<<endl;
+
+
     std::list<ref<Rule> > good;
     std::list<ref<Rule> > junk;
     std::list<ref<Rule> > res;
@@ -1944,4 +2041,8 @@ std::map<std::string, unsigned int> Converter::getBitwidthMap()
 std::set<std::string> Converter::getComplexityLHSs()
 {
     return m_complexityLHSs;
+}
+
+void Converter::setRules(const std::list<ref<Rule>> &m_rules) {
+    Converter::m_rules = m_rules;
 }

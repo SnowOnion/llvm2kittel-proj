@@ -30,6 +30,9 @@
 #include <queue>
 #include <vector>
 
+using std::cout;
+using std::endl;
+
 Slicer::Slicer(llvm::Function *F, std::set<std::string> phiVars)
   : m_F(F),
     m_functionIdx(),
@@ -67,6 +70,7 @@ static void printRules(std::string header, std::list<ref<Rule> > rules)
 */
 
 // Usage
+// 产生集合 {0,1,...,size-1}
 std::set<unsigned int> Slicer::getSet(unsigned int size)
 {
     std::set<unsigned int> res;
@@ -79,12 +83,28 @@ std::set<unsigned int> Slicer::getSet(unsigned int size)
 /**
  * 还有输入：
  * m_F->arg_begin() // Keep all inputs of integer type
- * llvm::Module *module = m_F->getParent();  // keep all globals of integer type
+ * llvm::Module *module = m_F->getParent()->;  // keep all globals of integer type
+ *
  * @param rules
  * @return
  */
 std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 {
+    cout<<"================sliceUsage i = m_F->arg_begin(), e = m_F->arg_end()"<<endl;
+    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+        cout<<i->getName().str() <<endl;
+    }
+    cout<<"sliceUsage i = m_F->arg_begin(), e = m_F->arg_end() DONE================"<<endl;
+
+
+    cout<<"================sliceUsage global = module->global_begin(), globale = module->global_end()"<<endl;
+    llvm::Module *module = m_F->getParent();
+    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+        cout<<global->getName().str() <<endl;
+    }
+    cout<<"sliceUsage global = module->global_begin(), globale = module->global_end() DONE================"<<endl;
+
+
     if (rules.empty()) {
         return rules;
     }
@@ -152,7 +172,7 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
         }
     }
     // keep all globals of integer type
-    llvm::Module *module = m_F->getParent();
+//    llvm::Module *module = m_F->getParent();
     for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
         const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
         if (llvm::isa<llvm::IntegerType>(globalType)) {
@@ -173,6 +193,21 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 }
 
 // Constraint
+/**
+ * 还有输入：
+ * m_F->arg_begin()
+ * m_varIdx 在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
+ * m_idxVar 在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
+ *
+ * 好像体会到了作者的心情： 为了在 slicer.h L85 声明 unsigned int getIdxVar(std::string v);，也把数据写在旁边，于是把这个局部使用的数据写成了类成员。
+ * 1. 唉 不能在函数里定义函数，真不优雅；
+ * 2. 包个 getIdxVar(std::string v); 干吊？在里面写了蜜汁 exit code，我怀疑作者不会 C++ Exception。
+ *
+ * m_numVars 并不需要。是现场算出来的。
+ * m_depends 是现场算的。在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
+ * @param rules
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
 {
     if (rules.empty()) {
@@ -244,6 +279,12 @@ std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
             }
         }
     }
+    /**
+ * m_depends 在且仅在
+     * Slicer::makeDependsTransitive(void)
+     * Slicer::sliceConstraint
+     * 使用
+ */
     makeDependsTransitive();
 
 /*
@@ -854,6 +895,13 @@ void Slicer::makeCallsTransitive(void)
     }
 }
 
+/**
+* m_depends 在且仅在
+ * Slicer::makeDependsTransitive(void)
+ * Slicer::sliceConstraint
+ * 使用
+ * 传递闭包吗
+*/
 void Slicer::makeDependsTransitive(void)
 {
     for (unsigned int y = 0; y < m_numVars; ++y) {
@@ -1009,4 +1057,8 @@ std::list<ref<Rule> > Slicer::sliceDuplicates(std::list<ref<Rule> > rules)
     }
 
     return res;
+}
+
+std::list<ref<Rule> > Slicer::sliceUsagePure(std::list<ref<Rule> > rules) {
+    return std::list<ref<Rule>>();
 }

@@ -46,6 +46,18 @@ public:
 
     std::list<ref<Rule> > sliceDuplicates(std::list<ref<Rule> > rules);
 
+    static std::list<ref<Rule> > sliceUsagePure(std::list<ref<Rule> > rules);
+
+    static std::list<ref<Rule> > sliceConstraintPure(std::list<ref<Rule> > rules);
+
+    static std::list<ref<Rule> > sliceDefinedPure(std::list<ref<Rule> > rules);
+
+    static std::list<ref<Rule> > sliceStillUsedPure(std::list<ref<Rule> > rules);
+
+    static std::list<ref<Rule> > sliceTrivialNondefConstraintsPure(std::list<ref<Rule> > rules);
+
+    static std::list<ref<Rule> > sliceDuplicatesPure(std::list<ref<Rule> > rules);
+
 private:
     llvm::Function *m_F;
 

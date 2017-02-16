@@ -101,6 +101,14 @@ public:
 
     std::set<std::string> getComplexityLHSs();
 
+    static std::list<ref<Rule> > purifiedGetCondensedRules(
+            std::list<ref<Rule>> m_rules,
+    std::set<std::string> m_controlPoints,
+            std::list<std::string> m_vars
+    );
+
+    void setRules(const std::list<ref<Rule>> &m_rules);
+
 private:
     llvm::BasicBlock *m_entryBlock;
     void visitBB(llvm::BasicBlock *bb);
