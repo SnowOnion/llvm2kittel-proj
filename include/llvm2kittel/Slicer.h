@@ -80,24 +80,23 @@ private:
     void setUpCalls(std::list<ref<Rule> > rules);
     void makeCallsTransitive(void);
 
-    std::map<std::string, unsigned int> m_varIdx;
-    std::map<unsigned int, std::string> m_idxVar;
-    unsigned int getIdxVar(std::string v);
+
+//    unsigned int getIdxVar(std::string v);
     std::string getVar(unsigned int idx);
 
-    unsigned int m_numVars;
-    std::set<std::string> m_vars;
-    bool *m_depends;
-    void makeDependsTransitive(void);
 
-    std::map<std::string, std::set<std::string> > m_defined;
+    std::set<std::string> m_vars;
+
+    void makeDependsTransitive(unsigned int m_numVars, bool *m_depends);
+
+//    std::map<std::string, std::set<std::string> > m_defined;
     std::map<std::string, std::set<std::string> > m_stillUsed;
 
-    std::set<std::string> getKnownVars(std::string f);
+    std::set<std::string> getKnownVars(std::string f,std::map<std::string, std::set<std::string> >);
 
     std::set<std::string> getStillUsed(std::string f);
 
-    std::set<unsigned int> getNotNeeded(std::string f, std::list<std::string> vars);
+    std::set<unsigned int> getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> >);
 
     std::set<std::string> computeReachableFuns(std::list<ref<Rule> > rules);
 

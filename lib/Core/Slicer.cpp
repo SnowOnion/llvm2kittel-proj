@@ -41,12 +41,7 @@ Slicer::Slicer(llvm::Function *F, std::set<std::string> phiVars)
     m_functions(),
     m_preceeds(NULL),
     m_calls(NULL),
-    m_varIdx(),
-    m_idxVar(),
-    m_numVars(0),
     m_vars(),
-    m_depends(NULL),
-    m_defined(),
     m_stillUsed(),
     m_phiVars(phiVars)
 {}
@@ -55,7 +50,7 @@ Slicer::~Slicer()
 {
     delete [] m_preceeds;
     delete [] m_calls;
-    delete [] m_depends;
+
 }
 
 /*
@@ -195,14 +190,16 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 // Constraint
 /**
  * 还有输入：
- * m_F->arg_begin()
+ * m_F    ->arg_begin()
+ *
+ *
+ * 以下已局部化：
  * m_varIdx 在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
  * m_idxVar 在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
- *
- * 好像体会到了作者的心情： 为了在 slicer.h L85 声明 unsigned int getIdxVar(std::string v);，也把数据写在旁边，于是把这个局部使用的数据写成了类成员。
+ * * 好像体会到了作者的心情： 为了在 slicer.h L85 声明 unsigned int getIdxVar(std::string v);，也把数据写在旁边，于是把这个局部使用的数据写成了类成员。
  * 1. 唉 不能在函数里定义函数，真不优雅；
  * 2. 包个 getIdxVar(std::string v); 干吊？在里面写了蜜汁 exit code，我怀疑作者不会 C++ Exception。
- *
+ * 2017-2-16 19:12:29 取消 getIdxVar
  * m_numVars 并不需要。是现场算出来的。
  * m_depends 是现场算的。在且仅在 Slicer::sliceConstraint(std::list<ref<Rule> > rules) 和 Slicer::makeDependsTransitive(void) 使用
  * @param rules
@@ -210,6 +207,12 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
  */
 std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
 {
+    // 局部化了的 前 类成员
+    std::map<std::string, unsigned int> m_varIdx;
+    std::map<unsigned int, std::string> m_idxVar;
+    unsigned int m_numVars;
+    bool *m_depends;
+
     if (rules.empty()) {
         return rules;
     }
@@ -285,7 +288,7 @@ std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
      * Slicer::sliceConstraint
      * 使用
  */
-    makeDependsTransitive();
+    makeDependsTransitive(m_numVars,m_depends);
 
 /*
     for (std::vector<std::string>::iterator i = vars.begin(), e = vars.end(); i != e; ++i) {
@@ -446,8 +449,22 @@ std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
     return res;
 }
 
+/**
+ *
+ * 还需要：
+ * m_F           ->arg_begin()
+ * m_F           ->getParent()->global_begin()
+ * m_defined 但是当场算 已局部化
+ *
+ * @param rules
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
 {
+
+    std::map<std::string, std::set<std::string> > m_defined;
+
+
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
@@ -504,33 +521,6 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
         m_defined.insert(std::make_pair(right->getFunctionSymbol(), defs));
     }
 
-/*
-    for (std::set<std::string>::iterator i = m_functions.begin(), e = m_functions.end(); i != e; ++i) {
-        std::map<std::string, std::set<std::string> >::iterator found = m_defined.find(*i);
-        if (found == m_defined.end()) {
-            continue;
-        }
-        std::cout << "Defined by " << *i << ": ";
-        std::set<std::string> defd = found->second;
-        for (std::set<std::string>::iterator vi = defd.begin(), ve = defd.end(); vi != ve;) {
-            std::cout << *vi;
-            if (++vi != ve) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << std::endl;
-        std::cout << "Known by " << *i << ": ";
-        std::set<std::string> known = getKnownVars(*i);
-        for (std::set<std::string>::iterator vi = known.begin(), ve = known.end(); vi != ve;) {
-            std::cout << *vi;
-            if (++vi != ve) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << std::endl;
-    }
-*/
-
     std::list<ref<Rule> > res;
     std::list<std::string> vars;
     std::list<ref<Polynomial> > polys = (*reachable.begin())->getLeft()->getArgs();
@@ -541,14 +531,14 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     }
     for (std::list<ref<Rule> >::iterator i = reachable.begin(), e = reachable.end(); i != e; ++i) {
         ref<Rule> rule = *i;
-        std::set<unsigned int> lnotneeded = getNotNeeded(rule->getLeft()->getFunctionSymbol(), vars);
+        std::set<unsigned int> lnotneeded = getNotNeeded(rule->getLeft()->getFunctionSymbol(), vars,m_defined);
         std::set<unsigned int> rnotneeded;
         if (rule->getRight()->getFunctionSymbol() == getEval("stop")) {
             rnotneeded = getSet(static_cast<unsigned int>(rule->getRight()->getArgs().size()));
         } else if (isRecursiveCall(rule->getRight()->getFunctionSymbol())) {
             // keep everything
         } else {
-            rnotneeded = getNotNeeded(rule->getRight()->getFunctionSymbol(), vars);
+            rnotneeded = getNotNeeded(rule->getRight()->getFunctionSymbol(), vars,m_defined);
         }
         ref<Rule> newRule = Rule::create(rule->getLeft()->dropArgs(lnotneeded), rule->getRight()->dropArgs(rnotneeded), rule->getConstraint());
         res.push_back(newRule);
@@ -557,11 +547,11 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     return res;
 }
 
-std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string> vars)
+std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> > m_defined)
 {
     std::set<unsigned int> res;
     unsigned int tmp = 0;
-    std::set<std::string> known = getKnownVars(f);
+    std::set<std::string> known = getKnownVars(f,m_defined);
     for (std::list<std::string>::iterator vi = vars.begin(), ve = vars.end(); vi != ve; ++vi) {
         if (known.find(*vi) == known.end()) {
             res.insert(tmp);
@@ -571,7 +561,7 @@ std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string
     return res;
 }
 
-std::set<std::string> Slicer::getKnownVars(std::string f)
+std::set<std::string> Slicer::getKnownVars(std::string f,std::map<std::string, std::set<std::string> > m_defined)
 {
     std::set<std::string> res;
     std::set<std::string> fdefines = m_defined.find(f)->second;
@@ -656,8 +646,20 @@ void Slicer::setUpCalls(std::list<ref<Rule> > rules)
 */
 }
 
+/**
+ * 还需要：
+ * m_F->arg_begin()
+ *
+ * m_stillUsed 但是当场算
+ * m_phiVars 但是用不上 因为 conservative总是false
+ * @param rules
+ * @param conservative
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool conservative)
 {
+
+
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
@@ -845,6 +847,16 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
     return res;
 }
 
+/**
+ * side input:
+ *
+ * m_stillUsed
+ * m_numFunctions
+ * m_calls
+ *
+ * @param f
+ * @return
+ */
 std::set<std::string> Slicer::getStillUsed(std::string f)
 {
     std::set<std::string> res;
@@ -902,7 +914,7 @@ void Slicer::makeCallsTransitive(void)
  * 使用
  * 传递闭包吗
 */
-void Slicer::makeDependsTransitive(void)
+void Slicer::makeDependsTransitive(unsigned int m_numVars, bool *m_depends)
 {
     for (unsigned int y = 0; y < m_numVars; ++y) {
         for (unsigned int x = 0; x < m_numVars; ++x) {
@@ -941,16 +953,16 @@ unsigned int Slicer::getIdxFunction(std::string f)
     }
 }
 
-std::string Slicer::getVar(unsigned int idx)
-{
-    std::map<unsigned int, std::string>::iterator found = m_idxVar.find(idx);
-    if (found == m_idxVar.end()) {
-        std::cerr << "Internal error in Slicer::getVar (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
-        exit(123);
-    } else {
-        return found->second;
-    }
-}
+//std::string Slicer::getVar(unsigned int idx)
+//{
+//    std::map<unsigned int, std::string>::iterator found = m_idxVar.find(idx);
+//    if (found == m_idxVar.end()) {
+//        std::cerr << "Internal error in Slicer::getVar (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
+//        exit(123);
+//    } else {
+//        return found->second;
+//    }
+//}
 
 //unsigned int Slicer::getIdxVar(std::string v)
 //{
