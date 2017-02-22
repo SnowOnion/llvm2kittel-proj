@@ -94,7 +94,7 @@ private:
 
     std::set<std::string> getKnownVars(std::string f,std::map<std::string, std::set<std::string> >);
 
-    std::set<std::string> getStillUsed(std::string f);
+    std::set<std::string> getStillUsed(std::string f,std::map<std::string, std::set<std::string> >);
 
     std::set<unsigned int> getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> >);
 
@@ -103,7 +103,7 @@ private:
     bool isRecursiveCall(std::string f);
     bool isNondef(std::string v);
 
-    std::set<std::string> m_phiVars;
+
 
 private:
     Slicer(const Slicer &);

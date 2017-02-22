@@ -218,6 +218,13 @@ private:
     bool m_complexityTuples;
     std::set<std::string> m_complexityLHSs;
 
+    // break your encapsulation......
+    // CLion自动生成的GETTER. wow, 这是getter 的最佳实践吗？const T& const
+public:
+    const std::list<std::string> &getVars() const;
+
+    const std::set<std::string> &getControlPoints() const;
+
 private:
     Converter(const Converter &);
     Converter &operator=(const Converter &);

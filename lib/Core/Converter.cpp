@@ -233,7 +233,7 @@ std::list<ref<Rule> > Converter::purifiedGetCondensedRules(
     }
     for (std::list<ref<Rule> >::iterator i = good.begin(), e = good.end(); i != e; ++i) {
         ref<Rule> rule = *i;
-        std::vector<ref<Rule> > todo;
+        std::vector<ref<Rule> > todo; // 当成stack用的呀。第一个塞前塞后无所谓，之后都塞到头里。
         todo.push_back(rule);
         while (!todo.empty()) {
             ref<Rule> r = *todo.begin();
@@ -253,7 +253,12 @@ std::list<ref<Rule> > Converter::purifiedGetCondensedRules(
                         for (std::list<std::string>::iterator vi = m_vars.begin(), ve = m_vars.end(); vi != ve; ++vi, ++ai) {
                             subby.insert(std::make_pair(*vi, *ai));
                         }
-                        ref<Rule> newRule = Rule::create(r->getLeft(), junkrule->getRight()->instantiate(&subby), Operator::create(r->getConstraint(), junkrule->getConstraint()->instantiate(&subby), Operator::And));
+                        ref<Rule> newRule = Rule::create(
+                                r->getLeft(),
+                                junkrule->getRight()->instantiate(&subby),
+                                Operator::create(r->getConstraint(),
+                                                 junkrule->getConstraint()->instantiate(&subby),
+                                                 Operator::And));
                         newtodo.push_back(newRule);
                     }
                 }
@@ -2045,4 +2050,14 @@ std::set<std::string> Converter::getComplexityLHSs()
 
 void Converter::setRules(const std::list<ref<Rule>> &m_rules) {
     Converter::m_rules = m_rules;
+}
+
+
+// break your encapsulation!
+const std::list<std::string> &Converter::getVars() const {
+    return m_vars;
+}
+
+const std::set<std::string> &Converter::getControlPoints() const {
+    return m_controlPoints;
 }

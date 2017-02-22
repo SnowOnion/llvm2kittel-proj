@@ -106,6 +106,24 @@ myKittelizedRulesIsoVarAndFunc // 状态(还是叫函数？)同构地改名，�
 `void Converter::visitSelectInst(llvm::SelectInst &I)``
 都没有被使用…… 什么心态
 
+## 下一些结论 2017-02-22
+
+### condense 阶段
++ m_controlPoints 里的状态名是：
+    + 所有 eval_<函数名>_<Basic Block 名>_in
+    + eval_<函数名>_start
+    + eval_<函数名>_stop
+    + （或者说，排除了所有 eval_<函数名>_<Basic Block 名>_out）
++ condense 之后，留下的 rule 的左右两边，都只有 m_controlPoints 里的状态。
+
+后果（Consequence）：如果自己构造 rule、自己给状态命名，则需要输入如下信息：要在 condense 后的 rules 里保留哪些状态。
+
+于是似乎，condense 算法做的重要工作是，在合并 rule 的时候，计算各个参数的值的变化效果之和。
+
++ m_var 里总是第一条 rule 的左手边的全部参数
+
+后果：我们可以从输入的 rules 里轻松提取出 m_var。
+
 ## Author
 
 Stephan Falke, Jeroen Ketema, Marc Brockschmidt

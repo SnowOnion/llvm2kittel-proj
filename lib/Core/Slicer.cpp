@@ -41,9 +41,7 @@ Slicer::Slicer(llvm::Function *F, std::set<std::string> phiVars)
     m_functions(),
     m_preceeds(NULL),
     m_calls(NULL),
-    m_vars(),
-    m_stillUsed(),
-    m_phiVars(phiVars)
+    m_vars()
 {}
 
 Slicer::~Slicer()
@@ -461,9 +459,7 @@ std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
  */
 std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
 {
-
     std::map<std::string, std::set<std::string> > m_defined;
-
 
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
@@ -652,13 +648,20 @@ void Slicer::setUpCalls(std::list<ref<Rule> > rules)
  *
  * m_stillUsed 但是当场算
  * m_phiVars 但是用不上 因为 conservative总是false
+ *
+ * 大问题：getStillUsed 里还用到了:
+ * m_numFunctions
+ * m_calls
+ *
  * @param rules
- * @param conservative
+ * @param conservative 按默认配置 总是false
  * @return
  */
 std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool conservative)
 {
-
+    // 局部化
+    std::map<std::string, std::set<std::string> > m_stillUsed;
+    std::set<std::string> m_phiVars; // 悍然
 
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
@@ -757,33 +760,6 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
         }
     }
 
-/*
-    for (std::set<std::string>::iterator i = m_functions.begin(), e = m_functions.end(); i != e; ++i) {
-        std::map<std::string, std::set<std::string> >::iterator found = m_stillUsed.find(*i);
-        if (found == m_stillUsed.end()) {
-            continue;
-        }
-        std::cout << "Directly still used by " << *i << ": ";
-        std::set<std::string> used = found->second;
-        for (std::set<std::string>::iterator vi = used.begin(), ve = used.end(); vi != ve;) {
-            std::cout << *vi;
-            if (++vi != ve) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << std::endl;
-        std::cout << "Transitively still used by " << *i << ": ";
-        std::set<std::string> stillUsed = getStillUsed(*i);
-        for (std::set<std::string>::iterator vi = stillUsed.begin(), ve = stillUsed.end(); vi != ve;) {
-            std::cout << *vi;
-            if (++vi != ve) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << std::endl;
-    }
-*/
-
     std::list<ref<Rule> > res;
     std::map<std::string, std::set<std::string> > stillusedMap;
     std::map<std::string, std::set<unsigned int> > notneededMap;
@@ -792,7 +768,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
         ref<Rule> rule = *i;
         std::string leftF = rule->getLeft()->getFunctionSymbol();
         if (stillusedMap.find(leftF) == stillusedMap.end()) {
-            stillusedMap.insert(std::make_pair(leftF, getStillUsed(leftF)));
+            stillusedMap.insert(std::make_pair(leftF, getStillUsed(leftF,m_stillUsed)));
         }
         if (varsMap.find(leftF) == varsMap.end()) {
             std::list<ref<Polynomial> > polys = rule->getLeft()->getArgs();
@@ -813,7 +789,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
                 // keep everything
                 notneededMap.insert(std::make_pair(rightF, std::set<unsigned int>()));
             } else {
-                stillusedMap.insert(std::make_pair(rightF, getStillUsed(rightF)));
+                stillusedMap.insert(std::make_pair(rightF, getStillUsed(rightF,m_stillUsed)));
             }
         }
     }
@@ -857,7 +833,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
  * @param f
  * @return
  */
-std::set<std::string> Slicer::getStillUsed(std::string f)
+std::set<std::string> Slicer::getStillUsed(std::string f,std::map<std::string, std::set<std::string> > m_stillUsed)
 {
     std::set<std::string> res;
     std::set<std::string> fstillused = m_stillUsed.find(f)->second;
@@ -986,6 +962,11 @@ bool Slicer::isNondef(std::string v)
     return (v.substr(0, 7) == "nondef.");
 }
 
+/**
+ * 没有任何side输入！
+ * @param rules
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceTrivialNondefConstraints(std::list<ref<Rule> > rules)
 {
     // Remove constraints of the form 'Polynomial Operator nondef' if nondef is not

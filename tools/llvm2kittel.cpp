@@ -537,6 +537,7 @@ int main(int argc, char *argv[])
 
     cl::SetVersionPrinter(&versionPrinter);
     cl::ParseCommandLineOptions(argc, argv, "llvm2kittel\n");
+    cout<<"argc="<<argc<<endl;
 
     if (boundedIntegers && divisionConstraintType == Exact) {
         std::cerr << "Cannot use \"-division-constraint=exact\" in combination with \"-bounded-integers\"" << std::endl;
@@ -852,10 +853,23 @@ int main(int argc, char *argv[])
 //            converter.setRules(myKittelizedRulesWithMoreRule);
 //            std::list<ref<Rule> > rules = converter.getRules();
 //            std::list<ref<Rule> > condensedRules = converter.getCondensedRules();
+            cout<<"====Outputting converter.getControlPoints():"<<endl;
+            for(auto i=converter.getControlPoints().begin(),e=converter.getControlPoints().end();i!=e;++i){
+                cout<<*i<<endl;
+            }
+            cout<<"====Outputting converter.getControlPoints() DONE."<<endl;
+            cout<<"====Outputting converter.getVars():"<<endl;
+            for(auto i=converter.getVars().begin(),e=converter.getVars().end();i!=e;++i){
+                cout<<*i<<endl;
+            }
+            cout<<"====Outputting converter.getVars() DONE."<<endl;
             std::list<ref<Rule> > condensedRules=Converter::purifiedGetCondensedRules(
-                    myKittelizedRulesWithMoreRule,
-                    std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop"}),
-                    std::list<std::string>({"v_y.0","v_r.0","v_1"})
+//                    myKittelizedRulesWithMoreRule,
+                    converter.getRules(),
+                    converter.getControlPoints(),
+                    converter.getVars()
+//                    std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop"}),
+//                    std::list<std::string>({"v_y.0","v_r.0","v_1"}
             );
             std::list<ref<Rule> > kittelizedRules = kittelize(condensedRules, smtSolver);
             auto phi=converter.getPhiVariables();
@@ -908,14 +922,15 @@ int main(int argc, char *argv[])
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {
-                slicedRules = slicer.sliceUsage(myKittelizedRulesIsomorphismVar); // 汗然替换
+                slicedRules = slicer.sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
                 printRules(slicedRules,"after sliceUsage");
                 slicedRules = slicer.sliceConstraint(slicedRules);
                 printRules(slicedRules,"after sliceConstraint");
-                slicedRules = slicer.sliceDefined(slicedRules);
+                slicedRules = slicer.sliceDefined(slicedRules); // -> setUpPreceds(reachable) -> 增加 m_functions
                 printRules(slicedRules,"after sliceDefined");
                 cout<<"conservativeSlicing is "<<conservativeSlicing<<endl;
                 slicedRules = slicer.sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
+                // -> setUpCalls(reachable) -> 增加 m_functions
                 printRules(slicedRules,"after sliceStillUsed");
                 slicedRules = slicer.sliceTrivialNondefConstraints(slicedRules);
                 printRules(slicedRules,"after sliceTrivialNondefConstraints");
