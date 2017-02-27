@@ -546,6 +546,12 @@
 		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Export/UniformComplexityTuplePrinter.cpp">
 			<Option target="llvm2kittelExport"/>
 		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Fake/MyLLVMFunction.cpp">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
+		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/Fake/MyLLVMFunction.h">
+			<Option target="llvm2kittelExport"/>
+		</Unit>
 		<Unit filename="/home/lee/Development/llvm2kittel-proj/lib/IntTRS/Constraint.cpp">
 			<Option target="llvm2kittelIntTRS"/>
 		</Unit>

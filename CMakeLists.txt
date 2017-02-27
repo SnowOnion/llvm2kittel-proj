@@ -117,7 +117,7 @@ set(llvm2kittelExportFiles
   include/llvm2kittel/Export/ComplexityTuplePrinter.h
   include/llvm2kittel/Export/UniformComplexityTuplePrinter.h
   include/llvm2kittel/Export/T2Export.h
-)
+        lib/Fake/MyLLVMFunction.cpp lib/Fake/MyLLVMFunction.h)
 
 add_library(llvm2kittelExport STATIC
   ${llvm2kittelExportFiles}

@@ -35,19 +35,17 @@ using std::endl;
 
 Slicer::Slicer(llvm::Function *F, std::set<std::string> phiVars)
   : m_F(F),
-    m_functionIdx(),
-    m_idxFunction(),
-    m_numFunctions(0),
-    m_functions(),
-    m_preceeds(NULL),
-    m_calls(NULL),
+//    m_functionIdx(),
+//    m_idxFunction(),
+//    m_numFunctions(0),
+//    m_functions(),
+//    m_preceeds(NULL),
+//    m_calls(NULL),
     m_vars()
 {}
 
 Slicer::~Slicer()
 {
-    delete [] m_preceeds;
-    delete [] m_calls;
 
 }
 
@@ -74,6 +72,7 @@ std::set<unsigned int> Slicer::getSet(unsigned int size)
 }
 
 /**
+ * [1/6]
  * 还有输入：
  * m_F->arg_begin() // Keep all inputs of integer type
  * llvm::Module *module = m_F->getParent()->global_begin();  // keep all globals of integer type
@@ -83,19 +82,19 @@ std::set<unsigned int> Slicer::getSet(unsigned int size)
  */
 std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 {
-    cout<<"================sliceUsage i = m_F->arg_begin(), e = m_F->arg_end()"<<endl;
-    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
-        cout<<i->getName().str() <<endl;
-    }
-    cout<<"sliceUsage i = m_F->arg_begin(), e = m_F->arg_end() DONE================"<<endl;
+//    cout<<"================sliceUsage i = m_F->arg_begin(), e = m_F->arg_end()"<<endl;
+//    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+//        cout<<i->getName().str() <<endl;
+//    }
+//    cout<<"sliceUsage i = m_F->arg_begin(), e = m_F->arg_end() DONE================"<<endl;
 
 
-    cout<<"================sliceUsage global = module->global_begin(), globale = module->global_end()"<<endl;
-    llvm::Module *module = m_F->getParent();
-    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
-        cout<<global->getName().str() <<endl;
-    }
-    cout<<"sliceUsage global = module->global_begin(), globale = module->global_end() DONE================"<<endl;
+//    cout<<"================sliceUsage global = module->global_begin(), globale = module->global_end()"<<endl;
+//    llvm::Module *module = m_F->getParent();
+//    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+//        cout<<global->getName().str() <<endl;
+//    }
+//    cout<<"sliceUsage global = module->global_begin(), globale = module->global_end() DONE================"<<endl;
 
 
     if (rules.empty()) {
@@ -157,22 +156,24 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
     }
     // Keep all inputs of integer type
     unsigned int intarg = 0;
-    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
-        llvm::Argument *arg = &*i;
-        if (llvm::isa<llvm::IntegerType>(arg->getType())) {
-            notNeeded.erase(intarg);
-            intarg++;
-        }
-    }
+    // 20170226
+//    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+//        llvm::Argument *arg = &*i;
+//        if (llvm::isa<llvm::IntegerType>(arg->getType())) {
+//            notNeeded.erase(intarg);
+//            intarg++;
+//        }
+//    }
     // keep all globals of integer type
 //    llvm::Module *module = m_F->getParent();
-    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
-        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
-        if (llvm::isa<llvm::IntegerType>(globalType)) {
-            notNeeded.erase(intarg);
-            intarg++;
-        }
-    }
+    // 20170226
+//    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+//        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
+//        if (llvm::isa<llvm::IntegerType>(globalType)) {
+//            notNeeded.erase(intarg);
+//            intarg++;
+//        }
+//    }
 
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
         ref<Rule> rule = *i;
@@ -187,6 +188,7 @@ std::list<ref<Rule> > Slicer::sliceUsage(std::list<ref<Rule> > rules)
 
 // Constraint
 /**
+ * [2/6]
  * 还有输入：
  * m_F    ->arg_begin()
  *
@@ -227,22 +229,24 @@ std::list<ref<Rule> > Slicer::sliceConstraint(std::list<ref<Rule> > rules)
     std::set<unsigned int> notNeeded = getSet(m_numVars);
     // Keep all inputs of integer type
     unsigned int intarg = 0;
-    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
-        llvm::Argument *arg = &*i;
-        if (llvm::isa<llvm::IntegerType>(arg->getType())) {
-            notNeeded.erase(intarg);
-            intarg++;
-        }
-    }
+    // 20170226
+//    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+//        llvm::Argument *arg = &*i;
+//        if (llvm::isa<llvm::IntegerType>(arg->getType())) {
+//            notNeeded.erase(intarg);
+//            intarg++;
+//        }
+//    }
     // keep all globals of integer type
-    llvm::Module *module = m_F->getParent();
-    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
-        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
-        if (llvm::isa<llvm::IntegerType>(globalType)) {
-            notNeeded.erase(intarg);
-            intarg++;
-        }
-    }
+    // 20170226
+//    llvm::Module *module = m_F->getParent();
+//    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+//        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
+//        if (llvm::isa<llvm::IntegerType>(globalType)) {
+//            notNeeded.erase(intarg);
+//            intarg++;
+//        }
+//    }
     // prepare
     std::set<std::string> c_vars;
     m_depends = new bool[m_numVars * m_numVars];
@@ -336,17 +340,34 @@ std::string Slicer::getVar(std::string name)
 std::string Slicer::getEval(std::string startstop)
 {
     std::ostringstream tmp;
-    tmp << "eval_" << m_F->getName().str() << "_" << startstop;
+//    tmp << "eval_" << m_F->getName().str() << "_" << startstop;
+    // 20160226
+    // TODO 千万别忘了改啊 // 多个函数可咋整
+    tmp << "eval_" << "main" << "_" << startstop;
     return tmp.str();
 }
 
-void Slicer::setUpPreceeds(std::list<ref<Rule> > rules)
-{
+
+std::set<std::string> calc_m_functions(std::list<ref<Rule>> rules){
+    std::set<std::string> m_functions;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
         m_functions.insert((*i)->getLeft()->getFunctionSymbol());
         m_functions.insert((*i)->getRight()->getFunctionSymbol());
     }
-    m_numFunctions = static_cast<unsigned int>(m_functions.size());
+    return m_functions;
+}
+
+bool* calc_m_preceeds(unsigned int m_numFunctions){
+    bool* m_preceeds = new bool[m_numFunctions * m_numFunctions];
+    for (unsigned int i = 0; i < m_numFunctions; ++i) {
+        for (unsigned int j = 0; j < m_numFunctions; ++j) {
+            m_preceeds[i + m_numFunctions * j] = false;
+        }
+    }
+    return m_preceeds;
+}
+
+void init_m_functionIdx_m_idxFunction(std::set<std::string> m_functions,std::map<std::string, unsigned int>& m_functionIdx,std::map<unsigned int, std::string>& m_idxFunction){
     unsigned int idx = 0;
     for (std::set<std::string>::iterator i = m_functions.begin(), e = m_functions.end(); i != e; ++i) {
         std::string f = *i;
@@ -354,12 +375,17 @@ void Slicer::setUpPreceeds(std::list<ref<Rule> > rules)
         m_idxFunction.insert(std::make_pair(idx, f));
         ++idx;
     }
-    m_preceeds = new bool[m_numFunctions * m_numFunctions];
-    for (unsigned int i = 0; i < m_numFunctions; ++i) {
-        for (unsigned int j = 0; j < m_numFunctions; ++j) {
-            m_preceeds[i + m_numFunctions * j] = false;
-        }
-    }
+}
+
+void Slicer::setUpPreceeds(std::list<ref<Rule> > rules)
+{
+    std::set<std::string> m_functions=calc_m_functions(rules); // 局部化
+    unsigned int m_numFunctions = static_cast<unsigned int>(m_functions.size());; // 局部化
+    std::map<std::string, unsigned int> m_functionIdx;
+    std::map<unsigned int, std::string> m_idxFunction;
+    init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
+    bool *m_preceeds=calc_m_preceeds(m_numFunctions);
+
     std::set<std::string> visited;
     std::queue<std::string> todo;
     todo.push(getEval("start"));
@@ -388,13 +414,13 @@ void Slicer::setUpPreceeds(std::list<ref<Rule> > rules)
             std::string child = *i;
             if (visited.find(child) == visited.end()) {
                 // not yet visited
-                m_preceeds[getIdxFunction(v) + m_numFunctions * getIdxFunction(child)] = true;
+                m_preceeds[getIdxFunction(v,m_functionIdx) + m_numFunctions * getIdxFunction(child,m_functionIdx)] = true;
                 todo.push(child);
             }
         }
     } while (!todo.empty());
 
-    makePreceedsTransitive();
+    makePreceedsTransitive(m_numFunctions,m_preceeds);
 
 /*
     for (unsigned int i = 0; i < m_numFunctions; ++i) {
@@ -448,11 +474,13 @@ std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
 }
 
 /**
- *
+ *[3/6]
  * 还需要：
  * m_F           ->arg_begin()
  * m_F           ->getParent()->global_begin()
  * m_defined 但是当场算 已局部化
+ *
+ * setUpPreceeds()
  *
  * @param rules
  * @return
@@ -460,6 +488,12 @@ std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
 std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
 {
     std::map<std::string, std::set<std::string> > m_defined;
+    auto m_functions=calc_m_functions(rules);
+    unsigned int m_numFunctions= (unsigned int) m_functions.size();
+    bool* m_preceeds=calc_m_preceeds(m_numFunctions);
+    std::map<std::string, unsigned int> m_functionIdx;
+    std::map<unsigned int, std::string> m_idxFunction;
+    init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
 
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
@@ -471,20 +505,21 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     if (reachable.empty()) {
         return reachable;
     }
-    setUpPreceeds(reachable);
+    setUpPreceeds(reachable); // 只用一次
     std::set<std::string> initial;
-    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
-        if (llvm::isa<llvm::IntegerType>(i->getType())) {
-            initial.insert(getVar(i->getName()));
-        }
-    }
-    llvm::Module *module = m_F->getParent();
-    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
-        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
-        if (llvm::isa<llvm::IntegerType>(globalType)) {
-            initial.insert(getVar(global->getName()));
-        }
-    }
+    // 20170226
+//    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+//        if (llvm::isa<llvm::IntegerType>(i->getType())) {
+//            initial.insert(getVar(i->getName()));
+//        }
+//    }
+//    llvm::Module *module = m_F->getParent();
+//    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+//        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
+//        if (llvm::isa<llvm::IntegerType>(globalType)) {
+//            initial.insert(getVar(global->getName()));
+//        }
+//    }
     m_defined.insert(std::make_pair(getEval("start"), initial));
     for (std::list<ref<Rule> >::iterator i = reachable.begin(), e = reachable.end(); i != e; ++i) {
         ref<Rule> tmp = *i;
@@ -527,14 +562,14 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     }
     for (std::list<ref<Rule> >::iterator i = reachable.begin(), e = reachable.end(); i != e; ++i) {
         ref<Rule> rule = *i;
-        std::set<unsigned int> lnotneeded = getNotNeeded(rule->getLeft()->getFunctionSymbol(), vars,m_defined);
+        std::set<unsigned int> lnotneeded = getNotNeeded(rule->getLeft()->getFunctionSymbol(), vars,m_defined,m_numFunctions,m_preceeds,m_idxFunction, m_functionIdx);
         std::set<unsigned int> rnotneeded;
         if (rule->getRight()->getFunctionSymbol() == getEval("stop")) {
             rnotneeded = getSet(static_cast<unsigned int>(rule->getRight()->getArgs().size()));
         } else if (isRecursiveCall(rule->getRight()->getFunctionSymbol())) {
             // keep everything
         } else {
-            rnotneeded = getNotNeeded(rule->getRight()->getFunctionSymbol(), vars,m_defined);
+            rnotneeded = getNotNeeded(rule->getRight()->getFunctionSymbol(), vars,m_defined,m_numFunctions,m_preceeds,m_idxFunction, m_functionIdx);
         }
         ref<Rule> newRule = Rule::create(rule->getLeft()->dropArgs(lnotneeded), rule->getRight()->dropArgs(rnotneeded), rule->getConstraint());
         res.push_back(newRule);
@@ -543,11 +578,12 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     return res;
 }
 
-std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> > m_defined)
+// 这个倒是自己写得很pure
+std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> > m_defined,unsigned int m_numFunctions,bool* m_preceeds,std::map<unsigned int, std::string>& m_idxFunction,std::map<std::string, unsigned int>  m_functionIdx)
 {
     std::set<unsigned int> res;
     unsigned int tmp = 0;
-    std::set<std::string> known = getKnownVars(f,m_defined);
+    std::set<std::string> known = getKnownVars(f,m_defined,m_numFunctions,m_preceeds,m_idxFunction,m_functionIdx);
     for (std::list<std::string>::iterator vi = vars.begin(), ve = vars.end(); vi != ve; ++vi) {
         if (known.find(*vi) == known.end()) {
             res.insert(tmp);
@@ -557,37 +593,25 @@ std::set<unsigned int> Slicer::getNotNeeded(std::string f, std::list<std::string
     return res;
 }
 
-std::set<std::string> Slicer::getKnownVars(std::string f,std::map<std::string, std::set<std::string> > m_defined)
+std::set<std::string> Slicer::getKnownVars(std::string f,std::map<std::string, std::set<std::string> > m_defined,unsigned int m_numFunctions,bool* m_preceeds,std::map<unsigned int, std::string>& m_idxFunction,std::map<std::string, unsigned int>  m_functionIdx)
 {
     std::set<std::string> res;
     std::set<std::string> fdefines = m_defined.find(f)->second;
     res.insert(fdefines.begin(), fdefines.end());
-    unsigned int fidx = getIdxFunction(f) * m_numFunctions;
+    unsigned int fidx = getIdxFunction(f,m_functionIdx) * m_numFunctions;
     for (unsigned int i = 0; i < m_numFunctions; ++i) {
         if (m_preceeds[i + fidx]) {
-            std::set<std::string> pdefines = m_defined.find(getFunction(i))->second;
+            std::set<std::string> pdefines = m_defined.find(getFunction(i,m_idxFunction))->second;
             res.insert(pdefines.begin(), pdefines.end());
         }
     }
     return res;
 }
 
-// Still Used
-void Slicer::setUpCalls(std::list<ref<Rule> > rules)
-{
-    for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
-        m_functions.insert((*i)->getLeft()->getFunctionSymbol());
-        m_functions.insert((*i)->getRight()->getFunctionSymbol());
-    }
-    m_numFunctions = static_cast<unsigned int>(m_functions.size());
-    unsigned int idx = 0;
-    for (std::set<std::string>::iterator i = m_functions.begin(), e = m_functions.end(); i != e; ++i) {
-        std::string f = *i;
-        m_functionIdx.insert(std::make_pair(f, idx));
-        m_idxFunction.insert(std::make_pair(idx, f));
-        ++idx;
-    }
-    m_calls = new bool[m_numFunctions * m_numFunctions];
+
+bool* Slicer::calc_m_calls(std::list<ref<Rule> > rules, unsigned int m_numFunctions,std::map<std::string, unsigned int>  m_functionIdx){
+    bool *m_calls= new bool[m_numFunctions * m_numFunctions];
+
     for (unsigned int i = 0; i < m_numFunctions; ++i) {
         for (unsigned int j = 0; j < m_numFunctions; ++j) {
             m_calls[i + m_numFunctions * j] = false;
@@ -619,15 +643,43 @@ void Slicer::setUpCalls(std::list<ref<Rule> > rules)
         }
         for (std::list<std::string>::iterator i = succs.begin(), e = succs.end(); i != e; ++i) {
             std::string child = *i;
-            m_calls[getIdxFunction(v) + m_numFunctions * getIdxFunction(child)] = true;
+            m_calls[getIdxFunction(v, m_functionIdx) + m_numFunctions * getIdxFunction(child, m_functionIdx)] = true;
             if (visited.find(child) == visited.end()) {
                 // not yet visited
                 todo.push(child);
             }
         }
     } while (!todo.empty());
+    return m_calls;
+}
 
-    makeCallsTransitive();
+// Still Used
+void Slicer::setUpCalls(std::list<ref<Rule> > rules)
+{
+    std::set<std::string> m_functions=calc_m_functions(rules); // 局部化
+    unsigned int m_numFunctions = static_cast<unsigned int>(m_functions.size());; // 局部化
+    std::map<std::string, unsigned int> m_functionIdx;
+    std::map<unsigned int, std::string> m_idxFunction;
+    init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
+    bool *m_preceeds;
+    bool *m_calls= calc_m_calls(rules,m_numFunctions,m_functionIdx);
+
+    for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
+        m_functions.insert((*i)->getLeft()->getFunctionSymbol());
+        m_functions.insert((*i)->getRight()->getFunctionSymbol());
+    }
+
+    unsigned int idx = 0;
+    for (std::set<std::string>::iterator i = m_functions.begin(), e = m_functions.end(); i != e; ++i) {
+        std::string f = *i;
+        m_functionIdx.insert(std::make_pair(f, idx));
+        m_idxFunction.insert(std::make_pair(idx, f));
+        ++idx;
+    }
+
+
+
+    makeCallsTransitive(m_numFunctions,m_calls);
 
 /*
     for (unsigned int i = 0; i < m_numFunctions; ++i) {
@@ -643,6 +695,7 @@ void Slicer::setUpCalls(std::list<ref<Rule> > rules)
 }
 
 /**
+ * [4/6]
  * 还需要：
  * m_F->arg_begin()
  *
@@ -663,6 +716,13 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
     std::map<std::string, std::set<std::string> > m_stillUsed;
     std::set<std::string> m_phiVars; // 悍然
 
+    auto m_functions=calc_m_functions(rules);
+    unsigned int m_numFunctions= (unsigned int) m_functions.size();
+    std::map<std::string, unsigned int> m_functionIdx;
+    std::map<unsigned int, std::string> m_idxFunction;
+    init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
+    bool *m_calls= calc_m_calls(rules,m_numFunctions,m_functionIdx);
+
     std::set<std::string> reachableFuns = computeReachableFuns(rules);
     std::list<ref<Rule> > reachable;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
@@ -677,19 +737,20 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
 
     // simple cases first
     m_stillUsed.insert(std::make_pair(getEval("stop"), std::set<std::string>()));
+    // 20170226
     std::set<std::string> initial;
-    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
-        if (llvm::isa<llvm::IntegerType>(i->getType())) {
-            initial.insert(getVar(i->getName()));
-        }
-    }
-    llvm::Module *module = m_F->getParent();
-    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
-        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
-        if (llvm::isa<llvm::IntegerType>(globalType)) {
-            initial.insert(getVar(global->getName()));
-        }
-    }
+//    for (llvm::Function::arg_iterator i = m_F->arg_begin(), e = m_F->arg_end(); i != e; ++i) {
+//        if (llvm::isa<llvm::IntegerType>(i->getType())) {
+//            initial.insert(getVar(i->getName()));
+//        }
+//    }
+//    llvm::Module *module = m_F->getParent();
+//    for (llvm::Module::global_iterator global = module->global_begin(), globale = module->global_end(); global != globale; ++global) {
+//        const llvm::Type *globalType = llvm::cast<llvm::PointerType>(global->getType())->getContainedType(0);
+//        if (llvm::isa<llvm::IntegerType>(globalType)) {
+//            initial.insert(getVar(global->getName()));
+//        }
+//    }
     m_stillUsed.insert(std::make_pair(getEval("start"), initial));
 
     // rules
@@ -768,7 +829,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
         ref<Rule> rule = *i;
         std::string leftF = rule->getLeft()->getFunctionSymbol();
         if (stillusedMap.find(leftF) == stillusedMap.end()) {
-            stillusedMap.insert(std::make_pair(leftF, getStillUsed(leftF,m_stillUsed)));
+            stillusedMap.insert(std::make_pair(leftF, getStillUsed(leftF,m_stillUsed, m_numFunctions, m_calls,m_idxFunction,m_functionIdx)));
         }
         if (varsMap.find(leftF) == varsMap.end()) {
             std::list<ref<Polynomial> > polys = rule->getLeft()->getArgs();
@@ -789,7 +850,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
                 // keep everything
                 notneededMap.insert(std::make_pair(rightF, std::set<unsigned int>()));
             } else {
-                stillusedMap.insert(std::make_pair(rightF, getStillUsed(rightF,m_stillUsed)));
+                stillusedMap.insert(std::make_pair(rightF, getStillUsed(rightF,m_stillUsed, m_numFunctions, m_calls,m_idxFunction,m_functionIdx)));
             }
         }
     }
@@ -833,15 +894,21 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
  * @param f
  * @return
  */
-std::set<std::string> Slicer::getStillUsed(std::string f,std::map<std::string, std::set<std::string> > m_stillUsed)
+std::set<std::string> Slicer::getStillUsed(std::string f,
+                                           std::map<std::string, std::set<std::string> > m_stillUsed,
+                                           unsigned int m_numFunctions,
+                                           bool* m_calls,
+                                           std::map<unsigned int, std::string>& m_idxFunction,
+                                           std::map<std::string, unsigned int> m_functionIdx
+)
 {
     std::set<std::string> res;
     std::set<std::string> fstillused = m_stillUsed.find(f)->second;
     res.insert(fstillused.begin(), fstillused.end());
-    unsigned int fidx = getIdxFunction(f);
+    unsigned int fidx = getIdxFunction(f,m_functionIdx);
     for (unsigned int i = 0; i < m_numFunctions; ++i) {
-        if (m_calls[fidx + i * m_numFunctions] && !isRecursiveCall(getFunction(i))) {
-            std::set<std::string> sstillused = m_stillUsed.find(getFunction(i))->second;
+        if (m_calls[fidx + i * m_numFunctions] && !isRecursiveCall(getFunction(i,m_idxFunction))) {
+            std::set<std::string> sstillused = m_stillUsed.find(getFunction(i,m_idxFunction))->second;
             res.insert(sstillused.begin(), sstillused.end());
         }
     }
@@ -849,7 +916,7 @@ std::set<std::string> Slicer::getStillUsed(std::string f,std::map<std::string, s
 }
 
 // Helpers
-void Slicer::makePreceedsTransitive(void)
+void Slicer::makePreceedsTransitive(unsigned int m_numFunctions,bool* m_preceeds)
 {
     for (unsigned int y = 0; y < m_numFunctions; ++y) {
         for (unsigned int x = 0; x < m_numFunctions; ++x) {
@@ -866,7 +933,14 @@ void Slicer::makePreceedsTransitive(void)
     }
 }
 
-void Slicer::makeCallsTransitive(void)
+/**
+ * 传递closure
+ * 于是、call graph?
+ * @param m_numFunctions
+ * @param m_calls  SIDE EFFECT!
+ *
+ */
+void Slicer::makeCallsTransitive(unsigned int m_numFunctions,bool* m_calls)
 {
     for (unsigned int y = 0; y < m_numFunctions; ++y) {
         for (unsigned int x = 0; x < m_numFunctions; ++x) {
@@ -907,7 +981,7 @@ void Slicer::makeDependsTransitive(unsigned int m_numVars, bool *m_depends)
     }
 }
 
-std::string Slicer::getFunction(unsigned int idx)
+std::string Slicer::getFunction(unsigned int idx,std::map<unsigned int, std::string>& m_idxFunction)
 {
     std::map<unsigned int, std::string>::iterator found = m_idxFunction.find(idx);
     if (found == m_idxFunction.end()) {
@@ -918,7 +992,7 @@ std::string Slicer::getFunction(unsigned int idx)
     }
 }
 
-unsigned int Slicer::getIdxFunction(std::string f)
+unsigned int Slicer::getIdxFunction(std::string f,std::map<std::string, unsigned int> m_functionIdx)
 {
     std::map<std::string, unsigned int>::iterator found = m_functionIdx.find(f);
     if (found == m_functionIdx.end()) {
@@ -963,6 +1037,7 @@ bool Slicer::isNondef(std::string v)
 }
 
 /**
+ * [5/6]
  * 没有任何side输入！
  * @param rules
  * @return
@@ -1033,6 +1108,12 @@ std::list<ref<Rule> > Slicer::sliceTrivialNondefConstraints(std::list<ref<Rule> 
     return res;
 }
 
+/**
+ * [6/6]
+ * 太好了！纯函数
+ * @param rules
+ * @return
+ */
 std::list<ref<Rule> > Slicer::sliceDuplicates(std::list<ref<Rule> > rules)
 {
     std::list<ref<Rule> > res;

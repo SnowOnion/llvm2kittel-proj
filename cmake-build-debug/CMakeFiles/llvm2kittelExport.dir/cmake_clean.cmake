@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/llvm2kittelExport.dir/lib/Export/ComplexityTuplePrinter.cpp.o"
   "CMakeFiles/llvm2kittelExport.dir/lib/Export/UniformComplexityTuplePrinter.cpp.o"
   "CMakeFiles/llvm2kittelExport.dir/lib/Export/T2Export.cpp.o"
+  "CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.o"
   "libllvm2kittelExport.pdb"
   "libllvm2kittelExport.a"
 )

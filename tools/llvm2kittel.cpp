@@ -922,20 +922,22 @@ int main(int argc, char *argv[])
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {
-                slicedRules = slicer.sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
-                printRules(slicedRules,"after sliceUsage");
-                slicedRules = slicer.sliceConstraint(slicedRules);
-                printRules(slicedRules,"after sliceConstraint");
-                slicedRules = slicer.sliceDefined(slicedRules); // -> setUpPreceds(reachable) -> 增加 m_functions
-                printRules(slicedRules,"after sliceDefined");
+                slicedRules = Slicer::sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
+                printRules(slicedRules,"[1/6] after sliceUsage");
+                slicedRules = Slicer::sliceConstraint(slicedRules);
+                printRules(slicedRules,"[2/6] after sliceConstraint");
+                slicedRules = Slicer::sliceDefined(slicedRules); // -> setUpPreceds(reachable) -> 增加 m_functions
+                printRules(slicedRules,"[3/6] after sliceDefined");
+//                cout<<slicer.m_functions.size()<<endl;
                 cout<<"conservativeSlicing is "<<conservativeSlicing<<endl;
-                slicedRules = slicer.sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
+                slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
                 // -> setUpCalls(reachable) -> 增加 m_functions
-                printRules(slicedRules,"after sliceStillUsed");
-                slicedRules = slicer.sliceTrivialNondefConstraints(slicedRules);
-                printRules(slicedRules,"after sliceTrivialNondefConstraints");
-                slicedRules = slicer.sliceDuplicates(slicedRules);
-                printRules(slicedRules,"after sliceDuplicates");
+                printRules(slicedRules,"[4/6] after sliceStillUsed");
+//                cout<<slicer.m_functions.size()<<endl;
+                slicedRules = Slicer::sliceTrivialNondefConstraints(slicedRules);
+                printRules(slicedRules,"[5/6] after sliceTrivialNondefConstraints");
+                slicedRules = Slicer::sliceDuplicates(slicedRules);
+                printRules(slicedRules,"[6/6] after sliceDuplicates");
             }
             if (boundedIntegers) { // 默认false
                 slicedRules = kittelize(addBoundConstraints(slicedRules, converter.getBitwidthMap(), unsignedEncoding), smtSolver);

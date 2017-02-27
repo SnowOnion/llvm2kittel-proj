@@ -646,6 +646,33 @@ lib/Export/UniformComplexityTuplePrinter.cpp.s:
 	$(MAKE) -f CMakeFiles/llvm2kittelExport.dir/build.make CMakeFiles/llvm2kittelExport.dir/lib/Export/UniformComplexityTuplePrinter.cpp.s
 .PHONY : lib/Export/UniformComplexityTuplePrinter.cpp.s
 
+lib/Fake/MyLLVMFunction.o: lib/Fake/MyLLVMFunction.cpp.o
+
+.PHONY : lib/Fake/MyLLVMFunction.o
+
+# target to build an object file
+lib/Fake/MyLLVMFunction.cpp.o:
+	$(MAKE) -f CMakeFiles/llvm2kittelExport.dir/build.make CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.o
+.PHONY : lib/Fake/MyLLVMFunction.cpp.o
+
+lib/Fake/MyLLVMFunction.i: lib/Fake/MyLLVMFunction.cpp.i
+
+.PHONY : lib/Fake/MyLLVMFunction.i
+
+# target to preprocess a source file
+lib/Fake/MyLLVMFunction.cpp.i:
+	$(MAKE) -f CMakeFiles/llvm2kittelExport.dir/build.make CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.i
+.PHONY : lib/Fake/MyLLVMFunction.cpp.i
+
+lib/Fake/MyLLVMFunction.s: lib/Fake/MyLLVMFunction.cpp.s
+
+.PHONY : lib/Fake/MyLLVMFunction.s
+
+# target to generate assembly for a file
+lib/Fake/MyLLVMFunction.cpp.s:
+	$(MAKE) -f CMakeFiles/llvm2kittelExport.dir/build.make CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.s
+.PHONY : lib/Fake/MyLLVMFunction.cpp.s
+
 lib/IntTRS/Constraint.o: lib/IntTRS/Constraint.cpp.o
 
 .PHONY : lib/IntTRS/Constraint.o
@@ -1142,6 +1169,9 @@ help:
 	@echo "... lib/Export/UniformComplexityTuplePrinter.o"
 	@echo "... lib/Export/UniformComplexityTuplePrinter.i"
 	@echo "... lib/Export/UniformComplexityTuplePrinter.s"
+	@echo "... lib/Fake/MyLLVMFunction.o"
+	@echo "... lib/Fake/MyLLVMFunction.i"
+	@echo "... lib/Fake/MyLLVMFunction.s"
 	@echo "... lib/IntTRS/Constraint.o"
 	@echo "... lib/IntTRS/Constraint.i"
 	@echo "... lib/IntTRS/Constraint.s"
