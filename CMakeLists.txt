@@ -200,13 +200,18 @@ add_executable(llvm2kittel
   ${CMAKE_BINARY_DIR}/GitSHA1.cpp
   tools/GitSHA1.h
 )
+add_executable(testPureCondenseSlice
+        tools/testPureCondenseSlice.cpp
+        ${CMAKE_BINARY_DIR}/GitSHA1.cpp
+        tools/GitSHA1.h
+)
 add_dependencies(
   llvm2kittel make_git_sha1
 )
 
 set_target_properties(
   llvm2kittel llvm2kittelAnalysis llvm2kittelExport llvm2kittelCore
-  llvm2kittelIntTRS llvm2kittelTransform llvm2kittelUtil
+  llvm2kittelIntTRS llvm2kittelTransform llvm2kittelUtil testPureCondenseSlice
   PROPERTIES COMPILE_FLAGS "${LLVM_CXXFLAGS}" ${WARN_FLAGS}
 )
 

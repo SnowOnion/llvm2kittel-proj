@@ -27,4 +27,6 @@ CMakeFiles/llvm2kittelExport.dir/lib/Export/UniformComplexityTuplePrinter.cpp.o:
 CMakeFiles/llvm2kittelExport.dir/lib/Export/UniformComplexityTuplePrinter.cpp.o: ../include/llvm2kittel/Util/Ref.h
 CMakeFiles/llvm2kittelExport.dir/lib/Export/UniformComplexityTuplePrinter.cpp.o: ../lib/Export/UniformComplexityTuplePrinter.cpp
 
+CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.o: ../lib/Fake/MyLLVMFunction.cpp
+CMakeFiles/llvm2kittelExport.dir/lib/Fake/MyLLVMFunction.cpp.o: ../lib/Fake/MyLLVMFunction.h
 

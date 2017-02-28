@@ -60,225 +60,39 @@ CMAKE_SOURCE_DIR = /home/lee/Development/llvm2kittel-proj
 CMAKE_BINARY_DIR = /home/lee/Development/llvm2kittel-proj/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/llvm2kittel.dir
+# Target rules for target CMakeFiles/llvm2kittelAnalysis.dir
 
 # All Build rule for target.
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelUtil.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelTransform.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelCore.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/make_git_sha1.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelIntTRS.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelExport.dir/all
-CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelAnalysis.dir/all
-	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target llvm2kittel"
-.PHONY : CMakeFiles/llvm2kittel.dir/all
+CMakeFiles/llvm2kittelAnalysis.dir/all:
+	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=4,5,6,7,8,9,10 "Built target llvm2kittelAnalysis"
+.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/all
 
 # Include target in all.
-all: CMakeFiles/llvm2kittel.dir/all
+all: CMakeFiles/llvm2kittelAnalysis.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 40
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittel.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittel.dir/rule
-
-# Convenience name for target.
-llvm2kittel: CMakeFiles/llvm2kittel.dir/rule
-
-.PHONY : llvm2kittel
-
-# clean rule for target.
-CMakeFiles/llvm2kittel.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/clean
-.PHONY : CMakeFiles/llvm2kittel.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/llvm2kittel.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/llvm2kittelUtil.dir
-
-# All Build rule for target.
-CMakeFiles/llvm2kittelUtil.dir/all:
-	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=38,39,40 "Built target llvm2kittelUtil"
-.PHONY : CMakeFiles/llvm2kittelUtil.dir/all
-
-# Include target in all.
-all: CMakeFiles/llvm2kittelUtil.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittelUtil.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelUtil.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittelUtil.dir/rule
-
-# Convenience name for target.
-llvm2kittelUtil: CMakeFiles/llvm2kittelUtil.dir/rule
-
-.PHONY : llvm2kittelUtil
-
-# clean rule for target.
-CMakeFiles/llvm2kittelUtil.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/clean
-.PHONY : CMakeFiles/llvm2kittelUtil.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/llvm2kittelUtil.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/llvm2kittelTransform.dir
-
-# All Build rule for target.
-CMakeFiles/llvm2kittelTransform.dir/all:
-	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36,37 "Built target llvm2kittelTransform"
-.PHONY : CMakeFiles/llvm2kittelTransform.dir/all
-
-# Include target in all.
-all: CMakeFiles/llvm2kittelTransform.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittelTransform.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 10
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelTransform.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittelTransform.dir/rule
-
-# Convenience name for target.
-llvm2kittelTransform: CMakeFiles/llvm2kittelTransform.dir/rule
-
-.PHONY : llvm2kittelTransform
-
-# clean rule for target.
-CMakeFiles/llvm2kittelTransform.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/clean
-.PHONY : CMakeFiles/llvm2kittelTransform.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/llvm2kittelTransform.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/llvm2kittelCore.dir
-
-# All Build rule for target.
-CMakeFiles/llvm2kittelCore.dir/all:
-	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=11,12,13,14,15,16,17 "Built target llvm2kittelCore"
-.PHONY : CMakeFiles/llvm2kittelCore.dir/all
-
-# Include target in all.
-all: CMakeFiles/llvm2kittelCore.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittelCore.dir/rule: cmake_check_build_system
+CMakeFiles/llvm2kittelAnalysis.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelCore.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelAnalysis.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittelCore.dir/rule
+.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/rule
 
 # Convenience name for target.
-llvm2kittelCore: CMakeFiles/llvm2kittelCore.dir/rule
+llvm2kittelAnalysis: CMakeFiles/llvm2kittelAnalysis.dir/rule
 
-.PHONY : llvm2kittelCore
-
-# clean rule for target.
-CMakeFiles/llvm2kittelCore.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/clean
-.PHONY : CMakeFiles/llvm2kittelCore.dir/clean
+.PHONY : llvm2kittelAnalysis
 
 # clean rule for target.
-clean: CMakeFiles/llvm2kittelCore.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/make_git_sha1.dir
-
-# All Build rule for target.
-CMakeFiles/make_git_sha1.dir/all:
-	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/depend
-	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num= "Built target make_git_sha1"
-.PHONY : CMakeFiles/make_git_sha1.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/make_git_sha1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/make_git_sha1.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/make_git_sha1.dir/rule
-
-# Convenience name for target.
-make_git_sha1: CMakeFiles/make_git_sha1.dir/rule
-
-.PHONY : make_git_sha1
+CMakeFiles/llvm2kittelAnalysis.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/clean
+.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/clean
 
 # clean rule for target.
-CMakeFiles/make_git_sha1.dir/clean:
-	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/clean
-.PHONY : CMakeFiles/make_git_sha1.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/make_git_sha1.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/llvm2kittelIntTRS.dir
-
-# All Build rule for target.
-CMakeFiles/llvm2kittelIntTRS.dir/all:
-	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=23,24,25,26,27 "Built target llvm2kittelIntTRS"
-.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/all
-
-# Include target in all.
-all: CMakeFiles/llvm2kittelIntTRS.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittelIntTRS.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 5
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelIntTRS.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/rule
-
-# Convenience name for target.
-llvm2kittelIntTRS: CMakeFiles/llvm2kittelIntTRS.dir/rule
-
-.PHONY : llvm2kittelIntTRS
-
-# clean rule for target.
-CMakeFiles/llvm2kittelIntTRS.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/clean
-.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/llvm2kittelIntTRS.dir/clean
+clean: CMakeFiles/llvm2kittelAnalysis.dir/clean
 
 .PHONY : clean
 
@@ -320,39 +134,262 @@ clean: CMakeFiles/llvm2kittelExport.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/llvm2kittelAnalysis.dir
+# Target rules for target CMakeFiles/llvm2kittelIntTRS.dir
 
 # All Build rule for target.
-CMakeFiles/llvm2kittelAnalysis.dir/all:
-	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/depend
-	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=4,5,6,7,8,9,10 "Built target llvm2kittelAnalysis"
-.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/all
+CMakeFiles/llvm2kittelIntTRS.dir/all:
+	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=23,24,25,26,27 "Built target llvm2kittelIntTRS"
+.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/all
 
 # Include target in all.
-all: CMakeFiles/llvm2kittelAnalysis.dir/all
+all: CMakeFiles/llvm2kittelIntTRS.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/llvm2kittelAnalysis.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelAnalysis.dir/all
+CMakeFiles/llvm2kittelIntTRS.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelIntTRS.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/rule
+.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/rule
 
 # Convenience name for target.
-llvm2kittelAnalysis: CMakeFiles/llvm2kittelAnalysis.dir/rule
+llvm2kittelIntTRS: CMakeFiles/llvm2kittelIntTRS.dir/rule
 
-.PHONY : llvm2kittelAnalysis
-
-# clean rule for target.
-CMakeFiles/llvm2kittelAnalysis.dir/clean:
-	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/clean
-.PHONY : CMakeFiles/llvm2kittelAnalysis.dir/clean
+.PHONY : llvm2kittelIntTRS
 
 # clean rule for target.
-clean: CMakeFiles/llvm2kittelAnalysis.dir/clean
+CMakeFiles/llvm2kittelIntTRS.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/clean
+.PHONY : CMakeFiles/llvm2kittelIntTRS.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/llvm2kittelIntTRS.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/make_git_sha1.dir
+
+# All Build rule for target.
+CMakeFiles/make_git_sha1.dir/all:
+	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/depend
+	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num= "Built target make_git_sha1"
+.PHONY : CMakeFiles/make_git_sha1.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/make_git_sha1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/make_git_sha1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/make_git_sha1.dir/rule
+
+# Convenience name for target.
+make_git_sha1: CMakeFiles/make_git_sha1.dir/rule
+
+.PHONY : make_git_sha1
+
+# clean rule for target.
+CMakeFiles/make_git_sha1.dir/clean:
+	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/clean
+.PHONY : CMakeFiles/make_git_sha1.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/make_git_sha1.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/llvm2kittelCore.dir
+
+# All Build rule for target.
+CMakeFiles/llvm2kittelCore.dir/all:
+	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=11,12,13,14,15,16,17 "Built target llvm2kittelCore"
+.PHONY : CMakeFiles/llvm2kittelCore.dir/all
+
+# Include target in all.
+all: CMakeFiles/llvm2kittelCore.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/llvm2kittelCore.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelCore.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/llvm2kittelCore.dir/rule
+
+# Convenience name for target.
+llvm2kittelCore: CMakeFiles/llvm2kittelCore.dir/rule
+
+.PHONY : llvm2kittelCore
+
+# clean rule for target.
+CMakeFiles/llvm2kittelCore.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/clean
+.PHONY : CMakeFiles/llvm2kittelCore.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/llvm2kittelCore.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/llvm2kittelTransform.dir
+
+# All Build rule for target.
+CMakeFiles/llvm2kittelTransform.dir/all:
+	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36,37 "Built target llvm2kittelTransform"
+.PHONY : CMakeFiles/llvm2kittelTransform.dir/all
+
+# Include target in all.
+all: CMakeFiles/llvm2kittelTransform.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/llvm2kittelTransform.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelTransform.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/llvm2kittelTransform.dir/rule
+
+# Convenience name for target.
+llvm2kittelTransform: CMakeFiles/llvm2kittelTransform.dir/rule
+
+.PHONY : llvm2kittelTransform
+
+# clean rule for target.
+CMakeFiles/llvm2kittelTransform.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/clean
+.PHONY : CMakeFiles/llvm2kittelTransform.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/llvm2kittelTransform.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/llvm2kittelUtil.dir
+
+# All Build rule for target.
+CMakeFiles/llvm2kittelUtil.dir/all:
+	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=38,39,40 "Built target llvm2kittelUtil"
+.PHONY : CMakeFiles/llvm2kittelUtil.dir/all
+
+# Include target in all.
+all: CMakeFiles/llvm2kittelUtil.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/llvm2kittelUtil.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittelUtil.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/llvm2kittelUtil.dir/rule
+
+# Convenience name for target.
+llvm2kittelUtil: CMakeFiles/llvm2kittelUtil.dir/rule
+
+.PHONY : llvm2kittelUtil
+
+# clean rule for target.
+CMakeFiles/llvm2kittelUtil.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/clean
+.PHONY : CMakeFiles/llvm2kittelUtil.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/llvm2kittelUtil.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/llvm2kittel.dir
+
+# All Build rule for target.
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelAnalysis.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelExport.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelIntTRS.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/make_git_sha1.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelCore.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelTransform.dir/all
+CMakeFiles/llvm2kittel.dir/all: CMakeFiles/llvm2kittelUtil.dir/all
+	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/depend
+	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target llvm2kittel"
+.PHONY : CMakeFiles/llvm2kittel.dir/all
+
+# Include target in all.
+all: CMakeFiles/llvm2kittel.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/llvm2kittel.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 40
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/llvm2kittel.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/llvm2kittel.dir/rule
+
+# Convenience name for target.
+llvm2kittel: CMakeFiles/llvm2kittel.dir/rule
+
+.PHONY : llvm2kittel
+
+# clean rule for target.
+CMakeFiles/llvm2kittel.dir/clean:
+	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/clean
+.PHONY : CMakeFiles/llvm2kittel.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/llvm2kittel.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/testPureCondenseSlice.dir
+
+# All Build rule for target.
+CMakeFiles/testPureCondenseSlice.dir/all:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/depend
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles --progress-num=41,42,43 "Built target testPureCondenseSlice"
+.PHONY : CMakeFiles/testPureCondenseSlice.dir/all
+
+# Include target in all.
+all: CMakeFiles/testPureCondenseSlice.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/testPureCondenseSlice.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testPureCondenseSlice.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lee/Development/llvm2kittel-proj/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/testPureCondenseSlice.dir/rule
+
+# Convenience name for target.
+testPureCondenseSlice: CMakeFiles/testPureCondenseSlice.dir/rule
+
+.PHONY : testPureCondenseSlice
+
+# clean rule for target.
+CMakeFiles/testPureCondenseSlice.dir/clean:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/clean
+.PHONY : CMakeFiles/testPureCondenseSlice.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testPureCondenseSlice.dir/clean
 
 .PHONY : clean
 

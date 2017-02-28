@@ -111,82 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named llvm2kittel
+# Target rules for targets named llvm2kittelAnalysis
 
 # Build rule for target.
-llvm2kittel: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittel
-.PHONY : llvm2kittel
+llvm2kittelAnalysis: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelAnalysis
+.PHONY : llvm2kittelAnalysis
 
 # fast build rule for target.
-llvm2kittel/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/build
-.PHONY : llvm2kittel/fast
-
-#=============================================================================
-# Target rules for targets named llvm2kittelUtil
-
-# Build rule for target.
-llvm2kittelUtil: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelUtil
-.PHONY : llvm2kittelUtil
-
-# fast build rule for target.
-llvm2kittelUtil/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/build
-.PHONY : llvm2kittelUtil/fast
-
-#=============================================================================
-# Target rules for targets named llvm2kittelTransform
-
-# Build rule for target.
-llvm2kittelTransform: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelTransform
-.PHONY : llvm2kittelTransform
-
-# fast build rule for target.
-llvm2kittelTransform/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/build
-.PHONY : llvm2kittelTransform/fast
-
-#=============================================================================
-# Target rules for targets named llvm2kittelCore
-
-# Build rule for target.
-llvm2kittelCore: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelCore
-.PHONY : llvm2kittelCore
-
-# fast build rule for target.
-llvm2kittelCore/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/build
-.PHONY : llvm2kittelCore/fast
-
-#=============================================================================
-# Target rules for targets named make_git_sha1
-
-# Build rule for target.
-make_git_sha1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 make_git_sha1
-.PHONY : make_git_sha1
-
-# fast build rule for target.
-make_git_sha1/fast:
-	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/build
-.PHONY : make_git_sha1/fast
-
-#=============================================================================
-# Target rules for targets named llvm2kittelIntTRS
-
-# Build rule for target.
-llvm2kittelIntTRS: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelIntTRS
-.PHONY : llvm2kittelIntTRS
-
-# fast build rule for target.
-llvm2kittelIntTRS/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/build
-.PHONY : llvm2kittelIntTRS/fast
+llvm2kittelAnalysis/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/build
+.PHONY : llvm2kittelAnalysis/fast
 
 #=============================================================================
 # Target rules for targets named llvm2kittelExport
@@ -202,17 +137,95 @@ llvm2kittelExport/fast:
 .PHONY : llvm2kittelExport/fast
 
 #=============================================================================
-# Target rules for targets named llvm2kittelAnalysis
+# Target rules for targets named llvm2kittelIntTRS
 
 # Build rule for target.
-llvm2kittelAnalysis: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelAnalysis
-.PHONY : llvm2kittelAnalysis
+llvm2kittelIntTRS: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelIntTRS
+.PHONY : llvm2kittelIntTRS
 
 # fast build rule for target.
-llvm2kittelAnalysis/fast:
-	$(MAKE) -f CMakeFiles/llvm2kittelAnalysis.dir/build.make CMakeFiles/llvm2kittelAnalysis.dir/build
-.PHONY : llvm2kittelAnalysis/fast
+llvm2kittelIntTRS/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittelIntTRS.dir/build.make CMakeFiles/llvm2kittelIntTRS.dir/build
+.PHONY : llvm2kittelIntTRS/fast
+
+#=============================================================================
+# Target rules for targets named make_git_sha1
+
+# Build rule for target.
+make_git_sha1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 make_git_sha1
+.PHONY : make_git_sha1
+
+# fast build rule for target.
+make_git_sha1/fast:
+	$(MAKE) -f CMakeFiles/make_git_sha1.dir/build.make CMakeFiles/make_git_sha1.dir/build
+.PHONY : make_git_sha1/fast
+
+#=============================================================================
+# Target rules for targets named llvm2kittelCore
+
+# Build rule for target.
+llvm2kittelCore: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelCore
+.PHONY : llvm2kittelCore
+
+# fast build rule for target.
+llvm2kittelCore/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittelCore.dir/build.make CMakeFiles/llvm2kittelCore.dir/build
+.PHONY : llvm2kittelCore/fast
+
+#=============================================================================
+# Target rules for targets named llvm2kittelTransform
+
+# Build rule for target.
+llvm2kittelTransform: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelTransform
+.PHONY : llvm2kittelTransform
+
+# fast build rule for target.
+llvm2kittelTransform/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittelTransform.dir/build.make CMakeFiles/llvm2kittelTransform.dir/build
+.PHONY : llvm2kittelTransform/fast
+
+#=============================================================================
+# Target rules for targets named llvm2kittelUtil
+
+# Build rule for target.
+llvm2kittelUtil: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittelUtil
+.PHONY : llvm2kittelUtil
+
+# fast build rule for target.
+llvm2kittelUtil/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittelUtil.dir/build.make CMakeFiles/llvm2kittelUtil.dir/build
+.PHONY : llvm2kittelUtil/fast
+
+#=============================================================================
+# Target rules for targets named llvm2kittel
+
+# Build rule for target.
+llvm2kittel: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 llvm2kittel
+.PHONY : llvm2kittel
+
+# fast build rule for target.
+llvm2kittel/fast:
+	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/build
+.PHONY : llvm2kittel/fast
+
+#=============================================================================
+# Target rules for targets named testPureCondenseSlice
+
+# Build rule for target.
+testPureCondenseSlice: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testPureCondenseSlice
+.PHONY : testPureCondenseSlice
+
+# fast build rule for target.
+testPureCondenseSlice/fast:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/build
+.PHONY : testPureCondenseSlice/fast
 
 GitSHA1.o: GitSHA1.cpp.o
 
@@ -221,6 +234,7 @@ GitSHA1.o: GitSHA1.cpp.o
 # target to build an object file
 GitSHA1.cpp.o:
 	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/GitSHA1.cpp.o
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/GitSHA1.cpp.o
 .PHONY : GitSHA1.cpp.o
 
 GitSHA1.i: GitSHA1.cpp.i
@@ -230,6 +244,7 @@ GitSHA1.i: GitSHA1.cpp.i
 # target to preprocess a source file
 GitSHA1.cpp.i:
 	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/GitSHA1.cpp.i
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/GitSHA1.cpp.i
 .PHONY : GitSHA1.cpp.i
 
 GitSHA1.s: GitSHA1.cpp.s
@@ -239,6 +254,7 @@ GitSHA1.s: GitSHA1.cpp.s
 # target to generate assembly for a file
 GitSHA1.cpp.s:
 	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/GitSHA1.cpp.s
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/GitSHA1.cpp.s
 .PHONY : GitSHA1.cpp.s
 
 lib/Analysis/ConditionPropagator.o: lib/Analysis/ConditionPropagator.cpp.o
@@ -1105,6 +1121,33 @@ tools/llvm2kittel.cpp.s:
 	$(MAKE) -f CMakeFiles/llvm2kittel.dir/build.make CMakeFiles/llvm2kittel.dir/tools/llvm2kittel.cpp.s
 .PHONY : tools/llvm2kittel.cpp.s
 
+tools/testPureCondenseSlice.o: tools/testPureCondenseSlice.cpp.o
+
+.PHONY : tools/testPureCondenseSlice.o
+
+# target to build an object file
+tools/testPureCondenseSlice.cpp.o:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/tools/testPureCondenseSlice.cpp.o
+.PHONY : tools/testPureCondenseSlice.cpp.o
+
+tools/testPureCondenseSlice.i: tools/testPureCondenseSlice.cpp.i
+
+.PHONY : tools/testPureCondenseSlice.i
+
+# target to preprocess a source file
+tools/testPureCondenseSlice.cpp.i:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/tools/testPureCondenseSlice.cpp.i
+.PHONY : tools/testPureCondenseSlice.cpp.i
+
+tools/testPureCondenseSlice.s: tools/testPureCondenseSlice.cpp.s
+
+.PHONY : tools/testPureCondenseSlice.s
+
+# target to generate assembly for a file
+tools/testPureCondenseSlice.cpp.s:
+	$(MAKE) -f CMakeFiles/testPureCondenseSlice.dir/build.make CMakeFiles/testPureCondenseSlice.dir/tools/testPureCondenseSlice.cpp.s
+.PHONY : tools/testPureCondenseSlice.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1112,15 +1155,16 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... llvm2kittel"
-	@echo "... llvm2kittelUtil"
-	@echo "... llvm2kittelTransform"
-	@echo "... llvm2kittelCore"
-	@echo "... make_git_sha1"
-	@echo "... llvm2kittelIntTRS"
-	@echo "... llvm2kittelExport"
-	@echo "... rebuild_cache"
 	@echo "... llvm2kittelAnalysis"
+	@echo "... rebuild_cache"
+	@echo "... llvm2kittelExport"
+	@echo "... llvm2kittelIntTRS"
+	@echo "... make_git_sha1"
+	@echo "... llvm2kittelCore"
+	@echo "... llvm2kittelTransform"
+	@echo "... llvm2kittelUtil"
+	@echo "... llvm2kittel"
+	@echo "... testPureCondenseSlice"
 	@echo "... GitSHA1.o"
 	@echo "... GitSHA1.i"
 	@echo "... GitSHA1.s"
@@ -1220,6 +1264,9 @@ help:
 	@echo "... tools/llvm2kittel.o"
 	@echo "... tools/llvm2kittel.i"
 	@echo "... tools/llvm2kittel.s"
+	@echo "... tools/testPureCondenseSlice.o"
+	@echo "... tools/testPureCondenseSlice.i"
+	@echo "... tools/testPureCondenseSlice.s"
 .PHONY : help
 
 

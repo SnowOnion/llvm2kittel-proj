@@ -922,7 +922,8 @@ int main(int argc, char *argv[])
             if (noSlicing) {
                 slicedRules = kittelizedRules;
             } else {
-                slicedRules = Slicer::sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
+//                slicedRules = Slicer::sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
+                slicedRules=Slicer::sliceUsage(myKittelizedRules);
                 printRules(slicedRules,"[1/6] after sliceUsage");
                 slicedRules = Slicer::sliceConstraint(slicedRules);
                 printRules(slicedRules,"[2/6] after sliceConstraint");
