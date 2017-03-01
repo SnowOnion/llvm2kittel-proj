@@ -136,10 +136,47 @@ myKittelizedRulesIsoVarAndFunc // 状态(还是叫函数？)同构地改名，�
 ### [2/2] slice 阶段
 
 
+## 纯化之后的结果
+
+### myKittelizedRulesWithMoreVar
+
+====Outputting myKittelizedRulesWithMoreVar:
+eval_main_start(v_y.0, v_r.0, v_1, baka) -> eval_main_bb0_in(v_y.0, v_r.0, v_1, baka)
+eval_main_bb0_in(v_y.0, v_r.0, v_1, baka) -> eval_main_bb1_in(nondef.0, 1, v_1, baka)
+eval_main_bb1_in(v_y.0, v_r.0, v_1, baka) -> eval_main_bb1_in(v_y.0 - 1, 0, v_y.0 - 1, baka) [ v_y.0 > 0 ]
+eval_main_bb1_in(v_y.0, v_r.0, v_1, baka) -> eval_main_bb2_in(v_y.0, v_r.0, v_y.0 - 1, baka) [ v_y.0 <= 0 ]
+eval_main_bb2_in(v_y.0, v_r.0, v_1, baka) -> eval_main_stop(v_y.0, v_r.0, v_1, baka)
+====Outputting myKittelizedRulesWithMoreVar done.
+====Outputting [6/6] after sliceDuplicates:
+eval_main_start() -> eval_main_bb0_in()
+eval_main_bb0_in() -> eval_main_bb1_in(nondef.0)
+eval_main_bb1_in(v_y.0) -> eval_main_bb1_in(v_y.0 - 1) [ v_y.0 > 0 ]
+eval_main_bb1_in(v_y.0) -> eval_main_bb2_in() [ v_y.0 <= 0 ]
+eval_main_bb2_in() -> eval_main_stop()
+====Outputting [6/6] after sliceDuplicates done.
+
+### myKittelizedRulesIsomorphismVar
+
+====Outputting myKittelizedRulesIsomorphismVar:
+eval_main_start(yyy, rrr, ichi) -> eval_main_bb0_in(yyy, rrr, ichi)
+eval_main_bb0_in(yyy, rrr, ichi) -> eval_main_bb1_in(nondef.0, 1, ichi)
+eval_main_bb1_in(yyy, rrr, ichi) -> eval_main_bb1_in(yyy - 1, 0, yyy - 1) [ yyy > 0 ]
+eval_main_bb1_in(yyy, rrr, ichi) -> eval_main_bb2_in(yyy, rrr, yyy - 1) [ yyy <= 0 ]
+eval_main_bb2_in(yyy, rrr, ichi) -> eval_main_stop(yyy, rrr, ichi)
+====Outputting myKittelizedRulesIsomorphismVar done.
+====Outputting [6/6] after sliceDuplicates:
+eval_main_start() -> eval_main_bb0_in()
+eval_main_bb0_in() -> eval_main_bb1_in(nondef.0)
+eval_main_bb1_in(yyy) -> eval_main_bb1_in(yyy - 1) [ yyy > 0 ]
+eval_main_bb1_in(yyy) -> eval_main_bb2_in() [ yyy <= 0 ]
+eval_main_bb2_in() -> eval_main_stop()
+====Outputting [6/6] after sliceDuplicates done.
 
 ## Author
 
-Stephan Falke, Jeroen Ketema, Marc Brockschmidt
+原作: Stephan Falke, Jeroen Ketema, Marc Brockschmidt
+
+改造：SnowOnion
 
 ## Papers
 

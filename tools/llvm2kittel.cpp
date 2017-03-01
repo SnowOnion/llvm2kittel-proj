@@ -412,30 +412,43 @@ int main(int argc, char *argv[])
 {
 
     // 插入自己构造的 kittelized rule!
-    std::list<ref<Rule> > myKittelizedRules({
-                                                    Rule::create(
-                                                            Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                                                            Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                                                            True::create())
-                                                    ,Rule::create(
-                    Term::create("eval_main_bb0_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                    Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("nondef.0"),Polynomial::create("1"),Polynomial::create("v_1")})),
-                    True::create())
-                                                    ,Rule::create(
-                    Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                    Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0")->sub(Polynomial::one),Polynomial::create("0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
-                    Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Gtr))
-                                                    ,Rule::create(
-                    Term::create("eval_main_bb1_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                    Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_y.0")->sub(Polynomial::one)})),
-                    Atom::create(Polynomial::create("v_y.0"),Polynomial::null,Atom::AType::Leq))
-                                                    ,Rule::create(
-                    Term::create("eval_main_bb2_in",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                    Term::create("eval_main_stop",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1")})),
-                    True::create())
+    std::list<ref<Rule> > myKittelizedRules({Rule::create(
+            Term::create("eval_main_start", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"),
+                     Polynomial::create("v_r.0"),
+                     Polynomial::create("v_1")})),
+            Term::create("eval_main_bb0_in",
+                         std::list<ref<Polynomial> >(
+                                 {Polynomial::create("v_y.0"),
+                                  Polynomial::create("v_r.0"),
+                                  Polynomial::create("v_1")})),
+            True::create()), Rule::create(
+            Term::create("eval_main_bb0_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"), Polynomial::create("v_1")})),
+            Term::create("eval_main_bb1_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("nondef.0"), Polynomial::create("1"), Polynomial::create("v_1")})),
+            True::create()), Rule::create(
+            Term::create("eval_main_bb1_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"), Polynomial::create("v_1")})),
+            Term::create("eval_main_bb1_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0")->sub(Polynomial::one), Polynomial::create("0"),
+                     Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+            Atom::create(Polynomial::create("v_y.0"), Polynomial::null, Atom::AType::Gtr)), Rule::create(
+            Term::create("eval_main_bb1_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"), Polynomial::create("v_1")})),
+            Term::create("eval_main_bb2_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"),
+                     Polynomial::create("v_y.0")->sub(Polynomial::one)})),
+            Atom::create(Polynomial::create("v_y.0"), Polynomial::null, Atom::AType::Leq)), Rule::create(
+            Term::create("eval_main_bb2_in", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"), Polynomial::create("v_1")})),
+            Term::create("eval_main_stop", std::list<ref<Polynomial> >(
+                    {Polynomial::create("v_y.0"), Polynomial::create("v_r.0"), Polynomial::create("v_1")})),
+            True::create())
                                             });
 
-    // slice 会去掉多余的变量
+
+        // slice 会去掉多余的变量
     std::list<ref<Rule> > myKittelizedRulesWithMoreVar({
                                                                Rule::create(
                                                                        Term::create("eval_main_start",std::list<ref<Polynomial> >({Polynomial::create("v_y.0"),Polynomial::create("v_r.0"),Polynomial::create("v_1"),Polynomial::create("baka")})),
@@ -533,468 +546,503 @@ int main(int argc, char *argv[])
                     True::create())
                                                          });
 
-
-
-    cl::SetVersionPrinter(&versionPrinter);
-    cl::ParseCommandLineOptions(argc, argv, "llvm2kittel\n");
-    cout<<"argc="<<argc<<endl;
-
-    if (boundedIntegers && divisionConstraintType == Exact) {
-        std::cerr << "Cannot use \"-division-constraint=exact\" in combination with \"-bounded-integers\"" << std::endl;
-        return 333;
-    }
-    if (!boundedIntegers && unsignedEncoding) {
-        std::cerr << "Cannot use \"-unsigned-encoding\" without \"-bounded-integers\"" << std::endl;
-        return 333;
-    }
-    if (!boundedIntegers && bitwiseConditions) {
-        std::cerr << "Cannot use \"-bitwise-conditions\" without \"-bounded-integers\"" << std::endl;
-        return 333;
-    }
-    if (numInlines != 0 && eagerInline) {
-        std::cerr << "Cannot use \"-inline\" in combination with \"-eager-inline\"" << std::endl;
-        return 333;
-    }
-
-#if LLVM_VERSION < VERSION(3, 5)
-    llvm::OwningPtr<llvm::MemoryBuffer> owningBuffer;
-    llvm::MemoryBuffer::getFileOrSTDIN(filename, owningBuffer);
-    llvm::MemoryBuffer *buffer = owningBuffer.get();
-#else
-    llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> owningBuffer = llvm::MemoryBuffer::getFileOrSTDIN(filename);
-    llvm::MemoryBuffer *buffer = NULL;
-    if (!owningBuffer.getError()) {
-        buffer = owningBuffer->get();
-    }
-#endif
-
-    if (buffer == NULL) {
-        std::cerr << "LLVM bitcode file \"" << filename << "\" does not exist or cannot be read." << std::endl;
-        return 1;
-    }
-
-    llvm::LLVMContext context;
-    std::string errMsg;
-#if LLVM_VERSION < VERSION(3, 5)
-    llvm::Module *module = llvm::ParseBitcodeFile(buffer, context, &errMsg);
-#elif LLVM_VERSION == VERSION(3, 5)
-    llvm::Module *module = NULL;
-    llvm::ErrorOr<llvm::Module*> moduleOrError = llvm::parseBitcodeFile(buffer, context);
-    std::error_code ec = moduleOrError.getError();
-    if (ec) {
-        errMsg = ec.message();
-    } else {
-        module = moduleOrError.get();
-    }
-#elif LLVM_VERSION == VERSION(3, 6)
-    llvm::Module *module = NULL;
-    llvm::ErrorOr<llvm::Module*> moduleOrError = llvm::parseBitcodeFile(buffer->getMemBufferRef(), context);
-    std::error_code ec = moduleOrError.getError();
-    if (ec) {
-        errMsg = ec.message();
-    } else {
-        module = moduleOrError.get();
-    }
-#else
-    llvm::Module *module = NULL;
-    llvm::ErrorOr<std::unique_ptr<llvm::Module>> moduleOrError = llvm::parseBitcodeFile(buffer->getMemBufferRef(), context);
-    std::error_code ec = moduleOrError.getError();
-    if (ec) {
-        errMsg = ec.message();
-    } else {
-        module = moduleOrError->get();
-    }
-#endif
-
-    // check if the file is a proper bitcode file and contains a module
-    if (module == NULL) {
-        std::cerr << "LLVM bitcode file doesn't contain a valid module." << std::endl;
-        return 2;
-    }
-
-    llvm::Function *function = NULL;
-    llvm::Function *firstFunction = NULL;
-    unsigned int numFunctions = 0;
-    std::list<std::string> functionNames;
-
-    for (llvm::Module::iterator i = module->begin(), e = module->end(); i != e; ++i) {
-        if (i->getName() == functionname) {
-            function = &*i;
-            break;
-        } else if (functionname.empty() && i->getName() == "main") {
-            function = &*i;
-            break;
-        } else if (!i->isDeclaration()) {
-            ++numFunctions;
-            functionNames.push_back(i->getName());
-            if (firstFunction == NULL) {
-                firstFunction = &*i;
-            }
-        }
-    }
-
-    if (function == NULL) {
-        if (numFunctions == 0) {
-            std::cerr << "Module does not contain any function." << std::endl;
-            return 3;
-        }
-        if (functionname.empty()) {
-            if (numFunctions == 1) {
-                function = firstFunction;
-            } else {
-                std::cerr << "LLVM module contains more than one function:" << std::endl;
-                for (std::list<std::string>::iterator i = functionNames.begin(), e = functionNames.end(); i != e; ++i) {
-                    std::cerr << "    " << *i << std::endl;
-                }
-                std::cerr << "Please specify which function should be used." << std::endl;
-                return 4;
-            }
-        } else  {
-            std::cerr << "Specified function not found." << std::endl;
-            std::cerr << "Candidates are:" << std::endl;
-            for (std::list<std::string>::iterator i = functionNames.begin(), e = functionNames.end(); i != e; ++i) {
-                std::cerr << "    " << *i << std::endl;
-            }
-            return 5;
-        }
-    }
-
-    // check for cyclic call hierarchies
-    HierarchyBuilder checkHierarchy;
-    checkHierarchy.computeHierarchy(module);
-    if (eagerInline && checkHierarchy.isCyclic()) {
-        std::cerr << "Cannot use \"-eager-inline\" with a cyclic call hierarchy!" << std::endl;
-        return 7;
-    }
-
-    // transform!
-    NondefFactory ndf(module);
-    transformModule(module, function, ndf);
-
-    // name them!
-    InstNamer namer;
-    namer.visit(module);
-
-    // check them!
-    const llvm::Type *boolType = llvm::Type::getInt1Ty(context);
-    const llvm::Type *floatType = llvm::Type::getFloatTy(context);
-    const llvm::Type *doubleType = llvm::Type::getDoubleTy(context);
-    InstChecker checker(boolType, floatType, doubleType);
-    checker.visit(module);
-
-    // print it!
-    if (debug) {
-#if LLVM_VERSION < VERSION(3, 5)
-        llvm::PassManager printPass;
-        printPass.add(llvm::createPrintModulePass(&llvm::outs()));
-        printPass.run(*module);
-#else
-        llvm::outs() << *module << '\n';
-#endif
-    }
-    if (dumpLL) {
-        std::string outFile = filename.substr(0, filename.length() - 3) + ".ll";
-#if LLVM_VERSION < VERSION(3, 5)
-        std::string errorInfo;
-        llvm::raw_fd_ostream stream(outFile.data(), errorInfo);
-        if (errorInfo.empty()) {
-            llvm::PassManager dumpPass;
-            dumpPass.add(llvm::createPrintModulePass(&stream));
-            dumpPass.run(*module);
-            stream.close();
-        }
-#elif LLVM_VERSION == VERSION(3, 5)
-        std::string errorInfo;
-        llvm::raw_fd_ostream stream(outFile.data(), errorInfo, llvm::sys::fs::F_Text);
-        if (errorInfo.empty()) {
-            stream << *module << '\n';
-            stream.close();
-        }
-#else
-        std::error_code errorCode;
-        llvm::raw_fd_ostream stream(outFile.data(), errorCode, llvm::sys::fs::F_Text);
-        if (!errorCode) {
-            stream << *module << '\n';
-            stream.close();
-        }
-#endif
-    }
-
-    // check for junk
-    std::list<llvm::Instruction*> unsuitable = checker.getUnsuitableInsts();
-    if (!unsuitable.empty()) {
-        std::cerr << "Unsuitable instructions detected:" << std::endl;
-        for (std::list<llvm::Instruction*>::iterator i = unsuitable.begin(), e = unsuitable.end(); i != e; ++i) {
-            (*i)->dump();
-        }
-        return 6;
-    }
-
-    // compute recursion hierarchy
-    HierarchyBuilder hierarchy;
-    hierarchy.computeHierarchy(module);
-    std::list<std::list<llvm::Function*> > sccs = hierarchy.getSccs();
-
-    std::map<llvm::Function*, std::list<llvm::Function*> > funToScc;
-    for (std::list<std::list<llvm::Function*> >::iterator i = sccs.begin(), e = sccs.end(); i != e; ++i) {
-        std::list<llvm::Function*> scc = *i;
-        for (std::list<llvm::Function*>::iterator si = scc.begin(), se = scc.end(); si != se; ++si) {
-            funToScc.insert(std::make_pair(*si, scc));
-        }
-    }
-    std::list<llvm::Function*> dependsOnList = hierarchy.getTransitivelyCalledFunctions(function);
-    std::set<llvm::Function*> dependsOn;
-    dependsOn.insert(dependsOnList.begin(), dependsOnList.end());
-    dependsOn.insert(function);
-    std::list<std::list<llvm::Function*> > dependsOnSccs;
-    for (std::list<std::list<llvm::Function*> >::iterator i = sccs.begin(), e = sccs.end(); i != e; ++i) {
-        std::list<llvm::Function*> scc = *i;
-        for (std::list<llvm::Function*>::iterator fi = scc.begin(), fe = scc.end(); fi != fe; ++fi) {
-            llvm::Function *f = *fi;
-            if (dependsOn.find(f) != dependsOn.end()) {
-                dependsOnSccs.push_back(scc);
-                break;
-            }
-        }
-    }
-
-    // compute may/must info, propagated conditions, and compute loop exiting blocks for all functions
-    std::map<llvm::Function*, MayMustMap> mmMap;
-    std::map<llvm::Function*, std::set<llvm::GlobalVariable*> > funcMayZapDirect;
-    std::map<llvm::Function*, TrueFalseMap> tfMap;
-    std::map<llvm::Function*, std::set<llvm::BasicBlock*> > lebMap;
-    std::map<llvm::Function*, ConditionMap> elcMap;
-    for (std::set<llvm::Function*>::iterator df = dependsOn.begin(), dfe = dependsOn.end(); df != dfe; ++df) {
-        llvm::Function *func = *df;
-        std::pair<MayMustMap, std::set<llvm::GlobalVariable*> > tmp = getMayMustMap(func);
-        mmMap.insert(std::make_pair(func, tmp.first));
-        funcMayZapDirect.insert(std::make_pair(func, tmp.second));
-        std::set<llvm::BasicBlock*> lcbs;
-        if (onlyLoopConditions) {
-            lcbs = getLoopConditionBlocks(func);
-            lebMap.insert(std::make_pair(func, lcbs));
-        }
-        if (propagateConditions) {
-            tfMap.insert(std::make_pair(func, getConditionPropagationMap(func, lcbs)));
-        }
-        if (explicitizeLoopConditions) {
-            elcMap.insert(std::make_pair(func, getExplicitizedLoopConditionMap(func)));
-        }
-    }
-
-    // transitively close funcMayZapDirect
-    std::map<llvm::Function*, std::set<llvm::GlobalVariable*> > funcMayZap;
-    for (std::set<llvm::Function*>::iterator df = dependsOn.begin(), dfe = dependsOn.end(); df != dfe; ++df) {
-        llvm::Function *func = *df;
-        std::set<llvm::GlobalVariable*> funcTransZap;
-        std::list<llvm::Function*> funcDependsOnList = hierarchy.getTransitivelyCalledFunctions(func);
-        std::set<llvm::Function*> funcDependsOn;
-        funcDependsOn.insert(funcDependsOnList.begin(), funcDependsOnList.end());
-        funcDependsOn.insert(func);
-        for (std::set<llvm::Function*>::iterator depfi = funcDependsOn.begin(), depfe = funcDependsOn.end(); depfi != depfe; ++depfi) {
-            llvm::Function *depf = *depfi;
-            std::map<llvm::Function*, std::set<llvm::GlobalVariable*> >::iterator depfZap = funcMayZapDirect.find(depf);
-            if (depfZap == funcMayZapDirect.end()) {
-                std::cerr << "Could not find alias information (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
-                exit(9876);
-            }
-            funcTransZap.insert(depfZap->second.begin(), depfZap->second.end());
-        }
-        funcMayZap.insert(std::make_pair(func, funcTransZap));
-    }
-
-    // convert sccs separately
-    unsigned int num = static_cast<unsigned int>(dependsOnSccs.size());
-    unsigned int currNum = 0;
-    for (std::list<std::list<llvm::Function*> >::iterator scci = dependsOnSccs.begin(), scce = dependsOnSccs.end(); scci != scce; ++scci) {
-        std::list<llvm::Function*> scc = *scci;
-        std::list<ref<Rule> > allRules;
-        std::list<ref<Rule> > allCondensedRules;
-        std::list<ref<Rule> > allKittelizedRules;
-        std::list<ref<Rule> > allSlicedRules;
-        if (debug) {
-            std::cout << "========================================" << std::endl;
-        }
-        if ((!complexityTuples && !uniformComplexityTuples) || debug) {
-            std::cout << "///*** " << getPartNumber(++currNum, num) << '_' << getSccName(scc) << " ***///" << std::endl;
-        }
-        std::set<llvm::Function*> sccSet;
-        sccSet.insert(scc.begin(), scc.end());
-
-        std::set<std::string> complexityLHSs;
-
-        for (std::list<llvm::Function*>::iterator fi = scc.begin(), fe = scc.end(); fi != fe; ++fi) {
-            llvm::Function *curr = *fi;
-            Converter converter(boolType, assumeIsControl, selectIsControl, onlyMultiPredIsControl, boundedIntegers, unsignedEncoding, onlyLoopConditions, divisionConstraintType, bitwiseConditions, complexityTuples || uniformComplexityTuples);
-            std::map<llvm::Function*, MayMustMap>::iterator tmp1 = mmMap.find(curr);
-            if (tmp1 == mmMap.end()) {
-                std::cerr << "Could not find alias information (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
-                exit(9876);
-            }
-            MayMustMap curr_mmMap = tmp1->second;
-            std::map<llvm::Function*, TrueFalseMap>::iterator tmp2 = tfMap.find(curr);
-            TrueFalseMap curr_tfMap;
-            if (tmp2 != tfMap.end()) {
-                curr_tfMap = tmp2->second;
-            }
-            std::map<llvm::Function*, std::set<llvm::BasicBlock*> >::iterator tmp3 = lebMap.find(curr);
-            std::set<llvm::BasicBlock*> curr_leb;
-            if (tmp3 != lebMap.end()) {
-                curr_leb = tmp3->second;
-            }
-            std::map<llvm::Function*, ConditionMap>::iterator tmp4 = elcMap.find(curr);
-            ConditionMap curr_elcMap;
-            if (tmp4 != elcMap.end()) {
-                curr_elcMap = tmp4->second;
-            }
-            converter.phase1(curr, sccSet, curr_mmMap, funcMayZap, curr_tfMap, curr_leb, curr_elcMap);
-            converter.phase2(curr, sccSet, curr_mmMap, funcMayZap, curr_tfMap, curr_leb, curr_elcMap);
-            // 偷梁换住
-//            converter.setRules(myKittelizedRulesWithMoreRule);
-//            std::list<ref<Rule> > rules = converter.getRules();
-//            std::list<ref<Rule> > condensedRules = converter.getCondensedRules();
-            cout<<"====Outputting converter.getControlPoints():"<<endl;
-            for(auto i=converter.getControlPoints().begin(),e=converter.getControlPoints().end();i!=e;++i){
-                cout<<*i<<endl;
-            }
-            cout<<"====Outputting converter.getControlPoints() DONE."<<endl;
-            cout<<"====Outputting converter.getVars():"<<endl;
-            for(auto i=converter.getVars().begin(),e=converter.getVars().end();i!=e;++i){
-                cout<<*i<<endl;
-            }
-            cout<<"====Outputting converter.getVars() DONE."<<endl;
-            std::list<ref<Rule> > condensedRules=Converter::purifiedGetCondensedRules(
-//                    myKittelizedRulesWithMoreRule,
-                    converter.getRules(),
-                    converter.getControlPoints(),
-                    converter.getVars()
-//                    std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop"}),
-//                    std::list<std::string>({"v_y.0","v_r.0","v_1"}
-            );
-            std::list<ref<Rule> > kittelizedRules = kittelize(condensedRules, smtSolver);
-            auto phi=converter.getPhiVariables();
-            cout<<"====Outputting phi s:"<<endl;
-            for(auto i=phi.begin(),e=phi.end();i!=e;++i){
-                cout<<*i<<endl;
-            }
-            cout<<"====Outputting phi s DONE."<<endl;
-            cout<<"====Outputting curr args:"<<endl;
-            for(auto i=curr->arg_begin(),e=curr->arg_end();i!=e;++i){
-                cout<<i->getName().str()<<endl;
-            }
-            cout<<"====Outputting curr args DONE."<<endl;
-
-            std::set<std::string> phiEmpty;
-
-            // 2.6古董教程 http://releases.llvm.org/2.6/docs/tutorial/JITTutorial1.html
-            // 现代教程 http://releases.llvm.org/3.5.0/docs/tutorial/LangImpl3.html#function-code-generation
-            llvm::LLVMContext& globalContext = llvm::getGlobalContext();
-            llvm::Module* mod = new llvm::Module("test", globalContext);
-            llvm::FunctionType* ft = llvm::FunctionType::get(llvm::Type::getVoidTy(globalContext), false);
-            llvm::Function* currEmpty=llvm::Function::Create(ft,llvm::Function::CommonLinkage);
-
-            Slicer slicer(curr, phiEmpty);
-            //悍然替换 phi->phiEmpty // 很高兴，slice 依然可用！
-            //悍然替换 curr->currEmpty // 大大的麻烦
-            std::list<ref<Rule> > slicedRules;
-
-            auto rules=converter.getRules(); // 爱咋咋
-            printRules(rules,"rules");
-            printRules(condensedRules,"condensedRules");
-            printRules(kittelizedRules,"kittelizedRules");
-
-
-
-            // ref<T> 重载了 operator ->
-            printRules(myKittelizedRules,"myKittelizedRules");
+    printRules(myKittelizedRules,"myKittelizedRules");
             printRules(myKittelizedRulesWithMoreRule,"myKittelizedRulesWithMoreRule");
             printRules(myKittelizedRulesWithMoreVar,"myKittelizedRulesWithMoreVar");
             printRules(myKittelizedRulesIsomorphismVar,"myKittelizedRulesIsomorphismVar");
             printRules(myKittelizedRulesIsoVarAndFunc,"myKittelizedRulesIsoVarAndFunc");
 
+    auto& rulesToCondense=myKittelizedRulesWithMoreRule; /// 配置位置 1/2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    auto m_vars=Converter::calc_vars_from_rules(rulesToCondense);
+    auto condensedRules = Converter::purifiedGetCondensedRules(
+            rulesToCondense,
+//            std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop"}),
+            std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop","weird_state"}),
+            m_vars
+            );
+    printRules(condensedRules,"condensedRules");
 
-            /**
-             * 所以，做slice需要：
-             * kittelizedRules
-             * slicer
-             *
-             */
-            if (noSlicing) {
-                slicedRules = kittelizedRules;
-            } else {
-//                slicedRules = Slicer::sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
-                slicedRules=Slicer::sliceUsage(myKittelizedRules);
-                printRules(slicedRules,"[1/6] after sliceUsage");
-                slicedRules = Slicer::sliceConstraint(slicedRules);
-                printRules(slicedRules,"[2/6] after sliceConstraint");
-                slicedRules = Slicer::sliceDefined(slicedRules); // -> setUpPreceds(reachable) -> 增加 m_functions
-                printRules(slicedRules,"[3/6] after sliceDefined");
-//                cout<<slicer.m_functions.size()<<endl;
-                cout<<"conservativeSlicing is "<<conservativeSlicing<<endl;
-                slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
-                // -> setUpCalls(reachable) -> 增加 m_functions
-                printRules(slicedRules,"[4/6] after sliceStillUsed");
-//                cout<<slicer.m_functions.size()<<endl;
-                slicedRules = Slicer::sliceTrivialNondefConstraints(slicedRules);
-                printRules(slicedRules,"[5/6] after sliceTrivialNondefConstraints");
-                slicedRules = Slicer::sliceDuplicates(slicedRules);
-                printRules(slicedRules,"[6/6] after sliceDuplicates");
-            }
-            if (boundedIntegers) { // 默认false
-                slicedRules = kittelize(addBoundConstraints(slicedRules, converter.getBitwidthMap(), unsignedEncoding), smtSolver);
-            }
-            if (debug) {
-                allRules.insert(allRules.end(), rules.begin(), rules.end());
-                allCondensedRules.insert(allCondensedRules.end(), condensedRules.begin(), condensedRules.end());
-                allKittelizedRules.insert(allKittelizedRules.end(), kittelizedRules.begin(), kittelizedRules.end());
-            }
-            if (simplifyConds) {
-                slicedRules = simplifyConstraints(slicedRules);
-            }
-            allSlicedRules.insert(allSlicedRules.end(), slicedRules.begin(), slicedRules.end());
+    auto& rulesToSlice = myKittelizedRulesIsoVarAndFunc; /// 配置位置 2/2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            if (complexityTuples || uniformComplexityTuples) {
-                std::set<std::string> tmpLHSs = converter.getComplexityLHSs();
-                complexityLHSs.insert(tmpLHSs.begin(), tmpLHSs.end());
-            }
+    std::list<ref<Rule> > slicedRules;
+    slicedRules=Slicer::sliceUsage(rulesToSlice);
+    printRules(slicedRules,"[1/6] after sliceUsage");
+    slicedRules = Slicer::sliceConstraint(slicedRules);
+    printRules(slicedRules,"[2/6] after sliceConstraint");
+    slicedRules = Slicer::sliceDefined(slicedRules);
+    printRules(slicedRules,"[3/6] after sliceDefined");
+    slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing);
+    printRules(slicedRules,"[4/6] after sliceStillUsed");
+    slicedRules = Slicer::sliceTrivialNondefConstraints(slicedRules);
+    printRules(slicedRules,"[5/6] after sliceTrivialNondefConstraints");
+    slicedRules = Slicer::sliceDuplicates(slicedRules);
+    printRules(slicedRules,"[6/6] after sliceDuplicates");
 
-            printRules(slicedRules,"slicedRules");
-        }
-        if (debug) {
-            std::cout << "========================================" << std::endl;
-            for (std::list<ref<Rule> >::iterator i = allRules.begin(), e = allRules.end(); i != e; ++i) {
-                ref<Rule> tmp = *i;
-                std::cout << tmp->toString() << std::endl;
-            }
-            std::cout << "========================================" << std::endl;
-            for (std::list<ref<Rule> >::iterator i = allCondensedRules.begin(), e = allCondensedRules.end(); i != e; ++i) {
-                ref<Rule> tmp = *i;
-                std::cout << tmp->toString() << std::endl;
-            }
-            std::cout << "========================================" << std::endl;
-            for (std::list<ref<Rule> >::iterator i = allKittelizedRules.begin(), e = allKittelizedRules.end(); i != e; ++i) {
-                ref<Rule> tmp = *i;
-                std::cout << tmp->toString() << std::endl;
-            }
-            std::cout << "========================================" << std::endl;
-        }
-        if (complexityTuples) {
-            printComplexityTuples(allSlicedRules, complexityLHSs, std::cout);
-        } else if (uniformComplexityTuples) { // “平均复杂程度”的元组……？
-            std::ostringstream startfun;
-            startfun << "eval_" << getSccName(scc) << "_start";
-            std::string name = startfun.str();
-            printUniformComplexityTuples(allSlicedRules, complexityLHSs, name, std::cout);
-        } else if (t2output) {
-            std::string startFun = "eval_" + getSccName(scc) + "_start";
-            printT2System(allSlicedRules, startFun, std::cout);
-        } else {
-            for (std::list<ref<Rule> >::iterator i = allSlicedRules.begin(), e = allSlicedRules.end(); i != e; ++i) {
-                ref<Rule> tmp = *i;
-                std::cout << tmp->toKittelString() << std::endl;
-            }
-        }
-    }
+
+
+//
+//
+//
+//    cl::SetVersionPrinter(&versionPrinter);
+//    cl::ParseCommandLineOptions(argc, argv, "llvm2kittel\n");
+//    cout<<"argc="<<argc<<endl;
+//
+//    if (boundedIntegers && divisionConstraintType == Exact) {
+//        std::cerr << "Cannot use \"-division-constraint=exact\" in combination with \"-bounded-integers\"" << std::endl;
+//        return 333;
+//    }
+//    if (!boundedIntegers && unsignedEncoding) {
+//        std::cerr << "Cannot use \"-unsigned-encoding\" without \"-bounded-integers\"" << std::endl;
+//        return 333;
+//    }
+//    if (!boundedIntegers && bitwiseConditions) {
+//        std::cerr << "Cannot use \"-bitwise-conditions\" without \"-bounded-integers\"" << std::endl;
+//        return 333;
+//    }
+//    if (numInlines != 0 && eagerInline) {
+//        std::cerr << "Cannot use \"-inline\" in combination with \"-eager-inline\"" << std::endl;
+//        return 333;
+//    }
+//
+//#if LLVM_VERSION < VERSION(3, 5)
+//    llvm::OwningPtr<llvm::MemoryBuffer> owningBuffer;
+//    llvm::MemoryBuffer::getFileOrSTDIN(filename, owningBuffer);
+//    llvm::MemoryBuffer *buffer = owningBuffer.get();
+//#else
+//    llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> owningBuffer = llvm::MemoryBuffer::getFileOrSTDIN(filename);
+//    llvm::MemoryBuffer *buffer = NULL;
+//    if (!owningBuffer.getError()) {
+//        buffer = owningBuffer->get();
+//    }
+//#endif
+//
+//    if (buffer == NULL) {
+//        std::cerr << "LLVM bitcode file \"" << filename << "\" does not exist or cannot be read." << std::endl;
+//        return 1;
+//    }
+//
+//    llvm::LLVMContext context;
+//    std::string errMsg;
+//#if LLVM_VERSION < VERSION(3, 5)
+//    llvm::Module *module = llvm::ParseBitcodeFile(buffer, context, &errMsg);
+//#elif LLVM_VERSION == VERSION(3, 5)
+//    llvm::Module *module = NULL;
+//    llvm::ErrorOr<llvm::Module*> moduleOrError = llvm::parseBitcodeFile(buffer, context);
+//    std::error_code ec = moduleOrError.getError();
+//    if (ec) {
+//        errMsg = ec.message();
+//    } else {
+//        module = moduleOrError.get();
+//    }
+//#elif LLVM_VERSION == VERSION(3, 6)
+//    llvm::Module *module = NULL;
+//    llvm::ErrorOr<llvm::Module*> moduleOrError = llvm::parseBitcodeFile(buffer->getMemBufferRef(), context);
+//    std::error_code ec = moduleOrError.getError();
+//    if (ec) {
+//        errMsg = ec.message();
+//    } else {
+//        module = moduleOrError.get();
+//    }
+//#else
+//    llvm::Module *module = NULL;
+//    llvm::ErrorOr<std::unique_ptr<llvm::Module>> moduleOrError = llvm::parseBitcodeFile(buffer->getMemBufferRef(), context);
+//    std::error_code ec = moduleOrError.getError();
+//    if (ec) {
+//        errMsg = ec.message();
+//    } else {
+//        module = moduleOrError->get();
+//    }
+//#endif
+//
+//    // check if the file is a proper bitcode file and contains a module
+//    if (module == NULL) {
+//        std::cerr << "LLVM bitcode file doesn't contain a valid module." << std::endl;
+//        return 2;
+//    }
+//
+//    llvm::Function *function = NULL;
+//    llvm::Function *firstFunction = NULL;
+//    unsigned int numFunctions = 0;
+//    std::list<std::string> functionNames;
+//
+//    for (llvm::Module::iterator i = module->begin(), e = module->end(); i != e; ++i) {
+//        if (i->getName() == functionname) {
+//            function = &*i;
+//            break;
+//        } else if (functionname.empty() && i->getName() == "main") {
+//            function = &*i;
+//            break;
+//        } else if (!i->isDeclaration()) {
+//            ++numFunctions;
+//            functionNames.push_back(i->getName());
+//            if (firstFunction == NULL) {
+//                firstFunction = &*i;
+//            }
+//        }
+//    }
+//
+//    if (function == NULL) {
+//        if (numFunctions == 0) {
+//            std::cerr << "Module does not contain any function." << std::endl;
+//            return 3;
+//        }
+//        if (functionname.empty()) {
+//            if (numFunctions == 1) {
+//                function = firstFunction;
+//            } else {
+//                std::cerr << "LLVM module contains more than one function:" << std::endl;
+//                for (std::list<std::string>::iterator i = functionNames.begin(), e = functionNames.end(); i != e; ++i) {
+//                    std::cerr << "    " << *i << std::endl;
+//                }
+//                std::cerr << "Please specify which function should be used." << std::endl;
+//                return 4;
+//            }
+//        } else  {
+//            std::cerr << "Specified function not found." << std::endl;
+//            std::cerr << "Candidates are:" << std::endl;
+//            for (std::list<std::string>::iterator i = functionNames.begin(), e = functionNames.end(); i != e; ++i) {
+//                std::cerr << "    " << *i << std::endl;
+//            }
+//            return 5;
+//        }
+//    }
+//
+//    // check for cyclic call hierarchies
+//    HierarchyBuilder checkHierarchy;
+//    checkHierarchy.computeHierarchy(module);
+//    if (eagerInline && checkHierarchy.isCyclic()) {
+//        std::cerr << "Cannot use \"-eager-inline\" with a cyclic call hierarchy!" << std::endl;
+//        return 7;
+//    }
+//
+//    // transform!
+//    NondefFactory ndf(module);
+//    transformModule(module, function, ndf);
+//
+//    // name them!
+//    InstNamer namer;
+//    namer.visit(module);
+//
+//    // check them!
+//    const llvm::Type *boolType = llvm::Type::getInt1Ty(context);
+//    const llvm::Type *floatType = llvm::Type::getFloatTy(context);
+//    const llvm::Type *doubleType = llvm::Type::getDoubleTy(context);
+//    InstChecker checker(boolType, floatType, doubleType);
+//    checker.visit(module);
+//
+//    // print it!
+//    if (debug) {
+//#if LLVM_VERSION < VERSION(3, 5)
+//        llvm::PassManager printPass;
+//        printPass.add(llvm::createPrintModulePass(&llvm::outs()));
+//        printPass.run(*module);
+//#else
+//        llvm::outs() << *module << '\n';
+//#endif
+//    }
+//    if (dumpLL) {
+//        std::string outFile = filename.substr(0, filename.length() - 3) + ".ll";
+//#if LLVM_VERSION < VERSION(3, 5)
+//        std::string errorInfo;
+//        llvm::raw_fd_ostream stream(outFile.data(), errorInfo);
+//        if (errorInfo.empty()) {
+//            llvm::PassManager dumpPass;
+//            dumpPass.add(llvm::createPrintModulePass(&stream));
+//            dumpPass.run(*module);
+//            stream.close();
+//        }
+//#elif LLVM_VERSION == VERSION(3, 5)
+//        std::string errorInfo;
+//        llvm::raw_fd_ostream stream(outFile.data(), errorInfo, llvm::sys::fs::F_Text);
+//        if (errorInfo.empty()) {
+//            stream << *module << '\n';
+//            stream.close();
+//        }
+//#else
+//        std::error_code errorCode;
+//        llvm::raw_fd_ostream stream(outFile.data(), errorCode, llvm::sys::fs::F_Text);
+//        if (!errorCode) {
+//            stream << *module << '\n';
+//            stream.close();
+//        }
+//#endif
+//    }
+//
+//    // check for junk
+//    std::list<llvm::Instruction*> unsuitable = checker.getUnsuitableInsts();
+//    if (!unsuitable.empty()) {
+//        std::cerr << "Unsuitable instructions detected:" << std::endl;
+//        for (std::list<llvm::Instruction*>::iterator i = unsuitable.begin(), e = unsuitable.end(); i != e; ++i) {
+//            (*i)->dump();
+//        }
+//        return 6;
+//    }
+//
+//    // compute recursion hierarchy
+//    HierarchyBuilder hierarchy;
+//    hierarchy.computeHierarchy(module);
+//    std::list<std::list<llvm::Function*> > sccs = hierarchy.getSccs();
+//
+//    std::map<llvm::Function*, std::list<llvm::Function*> > funToScc;
+//    for (std::list<std::list<llvm::Function*> >::iterator i = sccs.begin(), e = sccs.end(); i != e; ++i) {
+//        std::list<llvm::Function*> scc = *i;
+//        for (std::list<llvm::Function*>::iterator si = scc.begin(), se = scc.end(); si != se; ++si) {
+//            funToScc.insert(std::make_pair(*si, scc));
+//        }
+//    }
+//    std::list<llvm::Function*> dependsOnList = hierarchy.getTransitivelyCalledFunctions(function);
+//    std::set<llvm::Function*> dependsOn;
+//    dependsOn.insert(dependsOnList.begin(), dependsOnList.end());
+//    dependsOn.insert(function);
+//    std::list<std::list<llvm::Function*> > dependsOnSccs;
+//    for (std::list<std::list<llvm::Function*> >::iterator i = sccs.begin(), e = sccs.end(); i != e; ++i) {
+//        std::list<llvm::Function*> scc = *i;
+//        for (std::list<llvm::Function*>::iterator fi = scc.begin(), fe = scc.end(); fi != fe; ++fi) {
+//            llvm::Function *f = *fi;
+//            if (dependsOn.find(f) != dependsOn.end()) {
+//                dependsOnSccs.push_back(scc);
+//                break;
+//            }
+//        }
+//    }
+//
+//    // compute may/must info, propagated conditions, and compute loop exiting blocks for all functions
+//    std::map<llvm::Function*, MayMustMap> mmMap;
+//    std::map<llvm::Function*, std::set<llvm::GlobalVariable*> > funcMayZapDirect;
+//    std::map<llvm::Function*, TrueFalseMap> tfMap;
+//    std::map<llvm::Function*, std::set<llvm::BasicBlock*> > lebMap;
+//    std::map<llvm::Function*, ConditionMap> elcMap;
+//    for (std::set<llvm::Function*>::iterator df = dependsOn.begin(), dfe = dependsOn.end(); df != dfe; ++df) {
+//        llvm::Function *func = *df;
+//        std::pair<MayMustMap, std::set<llvm::GlobalVariable*> > tmp = getMayMustMap(func);
+//        mmMap.insert(std::make_pair(func, tmp.first));
+//        funcMayZapDirect.insert(std::make_pair(func, tmp.second));
+//        std::set<llvm::BasicBlock*> lcbs;
+//        if (onlyLoopConditions) {
+//            lcbs = getLoopConditionBlocks(func);
+//            lebMap.insert(std::make_pair(func, lcbs));
+//        }
+//        if (propagateConditions) {
+//            tfMap.insert(std::make_pair(func, getConditionPropagationMap(func, lcbs)));
+//        }
+//        if (explicitizeLoopConditions) {
+//            elcMap.insert(std::make_pair(func, getExplicitizedLoopConditionMap(func)));
+//        }
+//    }
+//
+//    // transitively close funcMayZapDirect
+//    std::map<llvm::Function*, std::set<llvm::GlobalVariable*> > funcMayZap;
+//    for (std::set<llvm::Function*>::iterator df = dependsOn.begin(), dfe = dependsOn.end(); df != dfe; ++df) {
+//        llvm::Function *func = *df;
+//        std::set<llvm::GlobalVariable*> funcTransZap;
+//        std::list<llvm::Function*> funcDependsOnList = hierarchy.getTransitivelyCalledFunctions(func);
+//        std::set<llvm::Function*> funcDependsOn;
+//        funcDependsOn.insert(funcDependsOnList.begin(), funcDependsOnList.end());
+//        funcDependsOn.insert(func);
+//        for (std::set<llvm::Function*>::iterator depfi = funcDependsOn.begin(), depfe = funcDependsOn.end(); depfi != depfe; ++depfi) {
+//            llvm::Function *depf = *depfi;
+//            std::map<llvm::Function*, std::set<llvm::GlobalVariable*> >::iterator depfZap = funcMayZapDirect.find(depf);
+//            if (depfZap == funcMayZapDirect.end()) {
+//                std::cerr << "Could not find alias information (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
+//                exit(9876);
+//            }
+//            funcTransZap.insert(depfZap->second.begin(), depfZap->second.end());
+//        }
+//        funcMayZap.insert(std::make_pair(func, funcTransZap));
+//    }
+//
+//    // convert sccs separately
+//    unsigned int num = static_cast<unsigned int>(dependsOnSccs.size());
+//    unsigned int currNum = 0;
+//    for (std::list<std::list<llvm::Function*> >::iterator scci = dependsOnSccs.begin(), scce = dependsOnSccs.end(); scci != scce; ++scci) {
+//        std::list<llvm::Function*> scc = *scci;
+//        std::list<ref<Rule> > allRules;
+//        std::list<ref<Rule> > allCondensedRules;
+//        std::list<ref<Rule> > allKittelizedRules;
+//        std::list<ref<Rule> > allSlicedRules;
+//        if (debug) {
+//            std::cout << "========================================" << std::endl;
+//        }
+//        if ((!complexityTuples && !uniformComplexityTuples) || debug) {
+//            std::cout << "///*** " << getPartNumber(++currNum, num) << '_' << getSccName(scc) << " ***///" << std::endl;
+//        }
+//        std::set<llvm::Function*> sccSet;
+//        sccSet.insert(scc.begin(), scc.end());
+//
+//        std::set<std::string> complexityLHSs;
+//
+//        for (std::list<llvm::Function*>::iterator fi = scc.begin(), fe = scc.end(); fi != fe; ++fi) {
+//            llvm::Function *curr = *fi;
+//            Converter converter(boolType, assumeIsControl, selectIsControl, onlyMultiPredIsControl, boundedIntegers, unsignedEncoding, onlyLoopConditions, divisionConstraintType, bitwiseConditions, complexityTuples || uniformComplexityTuples);
+//            std::map<llvm::Function*, MayMustMap>::iterator tmp1 = mmMap.find(curr);
+//            if (tmp1 == mmMap.end()) {
+//                std::cerr << "Could not find alias information (" << __FILE__ << ":" << __LINE__ << ")!" << std::endl;
+//                exit(9876);
+//            }
+//            MayMustMap curr_mmMap = tmp1->second;
+//            std::map<llvm::Function*, TrueFalseMap>::iterator tmp2 = tfMap.find(curr);
+//            TrueFalseMap curr_tfMap;
+//            if (tmp2 != tfMap.end()) {
+//                curr_tfMap = tmp2->second;
+//            }
+//            std::map<llvm::Function*, std::set<llvm::BasicBlock*> >::iterator tmp3 = lebMap.find(curr);
+//            std::set<llvm::BasicBlock*> curr_leb;
+//            if (tmp3 != lebMap.end()) {
+//                curr_leb = tmp3->second;
+//            }
+//            std::map<llvm::Function*, ConditionMap>::iterator tmp4 = elcMap.find(curr);
+//            ConditionMap curr_elcMap;
+//            if (tmp4 != elcMap.end()) {
+//                curr_elcMap = tmp4->second;
+//            }
+//            converter.phase1(curr, sccSet, curr_mmMap, funcMayZap, curr_tfMap, curr_leb, curr_elcMap);
+//            converter.phase2(curr, sccSet, curr_mmMap, funcMayZap, curr_tfMap, curr_leb, curr_elcMap);
+//            // 偷梁换住
+////            converter.setRules(myKittelizedRulesWithMoreRule);
+////            std::list<ref<Rule> > rules = converter.getRules();
+////            std::list<ref<Rule> > condensedRules = converter.getCondensedRules();
+//            cout<<"====Outputting converter.getControlPoints():"<<endl;
+//            for(auto i=converter.getControlPoints().begin(),e=converter.getControlPoints().end();i!=e;++i){
+//                cout<<*i<<endl;
+//            }
+//            cout<<"====Outputting converter.getControlPoints() DONE."<<endl;
+//            cout<<"====Outputting converter.getVars():"<<endl;
+//            for(auto i=converter.getVars().begin(),e=converter.getVars().end();i!=e;++i){
+//                cout<<*i<<endl;
+//            }
+//            cout<<"====Outputting converter.getVars() DONE."<<endl;
+//            std::list<ref<Rule> > condensedRules=Converter::purifiedGetCondensedRules(
+////                    myKittelizedRulesWithMoreRule,
+//                    converter.getRules(),
+//                    converter.getControlPoints(),
+//                    converter.getVars()
+////                    std::set<std::string>({"eval_main_bb0_in","eval_main_bb1_in","eval_main_bb2_in","eval_main_start","eval_main_stop"}),
+////                    std::list<std::string>({"v_y.0","v_r.0","v_1"}
+//            );
+//            std::list<ref<Rule> > kittelizedRules = kittelize(condensedRules, smtSolver);
+//            auto phi=converter.getPhiVariables();
+//            cout<<"====Outputting phi s:"<<endl;
+//            for(auto i=phi.begin(),e=phi.end();i!=e;++i){
+//                cout<<*i<<endl;
+//            }
+//            cout<<"====Outputting phi s DONE."<<endl;
+//            cout<<"====Outputting curr args:"<<endl;
+//            for(auto i=curr->arg_begin(),e=curr->arg_end();i!=e;++i){
+//                cout<<i->getName().str()<<endl;
+//            }
+//            cout<<"====Outputting curr args DONE."<<endl;
+//
+//            std::set<std::string> phiEmpty;
+//
+//            // 2.6古董教程 http://releases.llvm.org/2.6/docs/tutorial/JITTutorial1.html
+//            // 现代教程 http://releases.llvm.org/3.5.0/docs/tutorial/LangImpl3.html#function-code-generation
+//            llvm::LLVMContext& globalContext = llvm::getGlobalContext();
+//            llvm::Module* mod = new llvm::Module("test", globalContext);
+//            llvm::FunctionType* ft = llvm::FunctionType::get(llvm::Type::getVoidTy(globalContext), false);
+//            llvm::Function* currEmpty=llvm::Function::Create(ft,llvm::Function::CommonLinkage);
+//
+//            Slicer slicer(curr, phiEmpty);
+//            //悍然替换 phi->phiEmpty // 很高兴，slice 依然可用！
+//            //悍然替换 curr->currEmpty // 大大的麻烦
+//            std::list<ref<Rule> > slicedRules;
+//
+//            auto rules=converter.getRules(); // 爱咋咋
+//            printRules(rules,"rules");
+//            printRules(condensedRules,"condensedRules");
+//            printRules(kittelizedRules,"kittelizedRules");
+//
+//
+//
+//            // ref<T> 重载了 operator ->
+//            printRules(myKittelizedRules,"myKittelizedRules");
+//            printRules(myKittelizedRulesWithMoreRule,"myKittelizedRulesWithMoreRule");
+//            printRules(myKittelizedRulesWithMoreVar,"myKittelizedRulesWithMoreVar");
+//            printRules(myKittelizedRulesIsomorphismVar,"myKittelizedRulesIsomorphismVar");
+//            printRules(myKittelizedRulesIsoVarAndFunc,"myKittelizedRulesIsoVarAndFunc");
+//
+//
+//            /**
+//             * 所以，做slice需要：
+//             * kittelizedRules
+//             * slicer
+//             *
+//             */
+//            if (noSlicing) {
+//                slicedRules = kittelizedRules;
+//            } else {
+////                slicedRules = Slicer::sliceUsage(kittelizedRules); // 汗然替换 myKittelizedRulesIsomorphismVar
+//                slicedRules=Slicer::sliceUsage(myKittelizedRules);
+//                printRules(slicedRules,"[1/6] after sliceUsage");
+//                slicedRules = Slicer::sliceConstraint(slicedRules);
+//                printRules(slicedRules,"[2/6] after sliceConstraint");
+//                slicedRules = Slicer::sliceDefined(slicedRules); // -> setUpPreceds(reachable) -> 增加 m_functions
+//                printRules(slicedRules,"[3/6] after sliceDefined");
+////                cout<<slicer.m_functions.size()<<endl;
+//                cout<<"conservativeSlicing is "<<conservativeSlicing<<endl;
+//                slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing); // conservativeSlicing 的默认值是 false，导致 sliceStillUsed 函数从来永不到 m_phiVars。slicer 里 m_phiVars。所以，构造 slicer 时传入的 phiVars 没用……
+//                // -> setUpCalls(reachable) -> 增加 m_functions
+//                printRules(slicedRules,"[4/6] after sliceStillUsed");
+////                cout<<slicer.m_functions.size()<<endl;
+//                slicedRules = Slicer::sliceTrivialNondefConstraints(slicedRules);
+//                printRules(slicedRules,"[5/6] after sliceTrivialNondefConstraints");
+//                slicedRules = Slicer::sliceDuplicates(slicedRules);
+//                printRules(slicedRules,"[6/6] after sliceDuplicates");
+//            }
+//            if (boundedIntegers) { // 默认false
+//                slicedRules = kittelize(addBoundConstraints(slicedRules, converter.getBitwidthMap(), unsignedEncoding), smtSolver);
+//            }
+//            if (debug) {
+//                allRules.insert(allRules.end(), rules.begin(), rules.end());
+//                allCondensedRules.insert(allCondensedRules.end(), condensedRules.begin(), condensedRules.end());
+//                allKittelizedRules.insert(allKittelizedRules.end(), kittelizedRules.begin(), kittelizedRules.end());
+//            }
+//            if (simplifyConds) {
+//                slicedRules = simplifyConstraints(slicedRules);
+//            }
+//            allSlicedRules.insert(allSlicedRules.end(), slicedRules.begin(), slicedRules.end());
+//
+//            if (complexityTuples || uniformComplexityTuples) {
+//                std::set<std::string> tmpLHSs = converter.getComplexityLHSs();
+//                complexityLHSs.insert(tmpLHSs.begin(), tmpLHSs.end());
+//            }
+//
+//            printRules(slicedRules,"slicedRules");
+//        }
+//        if (debug) {
+//            std::cout << "========================================" << std::endl;
+//            for (std::list<ref<Rule> >::iterator i = allRules.begin(), e = allRules.end(); i != e; ++i) {
+//                ref<Rule> tmp = *i;
+//                std::cout << tmp->toString() << std::endl;
+//            }
+//            std::cout << "========================================" << std::endl;
+//            for (std::list<ref<Rule> >::iterator i = allCondensedRules.begin(), e = allCondensedRules.end(); i != e; ++i) {
+//                ref<Rule> tmp = *i;
+//                std::cout << tmp->toString() << std::endl;
+//            }
+//            std::cout << "========================================" << std::endl;
+//            for (std::list<ref<Rule> >::iterator i = allKittelizedRules.begin(), e = allKittelizedRules.end(); i != e; ++i) {
+//                ref<Rule> tmp = *i;
+//                std::cout << tmp->toString() << std::endl;
+//            }
+//            std::cout << "========================================" << std::endl;
+//        }
+//        if (complexityTuples) {
+//            printComplexityTuples(allSlicedRules, complexityLHSs, std::cout);
+//        } else if (uniformComplexityTuples) { // “平均复杂程度”的元组……？
+//            std::ostringstream startfun;
+//            startfun << "eval_" << getSccName(scc) << "_start";
+//            std::string name = startfun.str();
+//            printUniformComplexityTuples(allSlicedRules, complexityLHSs, name, std::cout);
+//        } else if (t2output) {
+//            std::string startFun = "eval_" + getSccName(scc) + "_start";
+//            printT2System(allSlicedRules, startFun, std::cout);
+//        } else {
+//            for (std::list<ref<Rule> >::iterator i = allSlicedRules.begin(), e = allSlicedRules.end(); i != e; ++i) {
+//                ref<Rule> tmp = *i;
+//                std::cout << tmp->toKittelString() << std::endl;
+//            }
+//        }
+//    }
 
     return 0;
 }

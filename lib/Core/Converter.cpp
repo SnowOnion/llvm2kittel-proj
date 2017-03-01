@@ -201,6 +201,16 @@ std::list<ref<Rule> > Converter::getRules()
     return m_rules;
 }
 
+std::list<std::string> Converter::calc_vars_from_rules(const std::list<ref<Rule> >& rulesToCondense){
+    std::set<std::string> vars;
+    (*rulesToCondense.front()).addVariablesToSet(vars);
+    std::list<std::string> m_vars;
+    for(auto i=vars.begin(),e=vars.end();i!=e;++i){
+        m_vars.push_back(*i);
+    }
+    return m_vars;
+}
+
 std::list<ref<Rule> > Converter::purifiedGetCondensedRules(
         std::list<ref<Rule>> m_rules,
         std::set<std::string> m_controlPoints,

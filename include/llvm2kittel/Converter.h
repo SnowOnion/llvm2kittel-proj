@@ -93,6 +93,8 @@ public:
 
     std::list<ref<Rule> > getRules();
 
+    static std::list<std::string> calc_vars_from_rules(const std::list<ref<Rule> >& rulesToCondense);
+
     std::list<ref<Rule> > getCondensedRules();
 
     std::set<std::string> getPhiVariables();
