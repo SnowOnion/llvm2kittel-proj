@@ -435,11 +435,12 @@ void Slicer::setUpPreceeds(std::list<ref<Rule> > rules)
 */
 }
 
-std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
+std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules,std::string startFunctionSymbolName)
 {
     std::set<std::string> res;
     std::queue<std::string> todo;
-    todo.push(getEval("start"));
+//    todo.push(getEval("start"));
+    todo.push(startFunctionSymbolName);
 
     do {
         std::string v = todo.front();
@@ -485,7 +486,7 @@ std::set<std::string> Slicer::computeReachableFuns(std::list<ref<Rule> > rules)
  * @param rules
  * @return
  */
-std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
+std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules,std::string startFunctionSymbolName)
 {
     std::map<std::string, std::set<std::string> > m_defined;
     auto m_functions=calc_m_functions(rules);
@@ -495,7 +496,7 @@ std::list<ref<Rule> > Slicer::sliceDefined(std::list<ref<Rule> > rules)
     std::map<unsigned int, std::string> m_idxFunction;
     init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
 
-    std::set<std::string> reachableFuns = computeReachableFuns(rules);
+    std::set<std::string> reachableFuns = computeReachableFuns(rules,startFunctionSymbolName);
     std::list<ref<Rule> > reachable;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
         if (reachableFuns.find((*i)->getLeft()->getFunctionSymbol()) != reachableFuns.end()) {
@@ -710,7 +711,7 @@ void Slicer::setUpCalls(std::list<ref<Rule> > rules)
  * @param conservative 按默认配置 总是false
  * @return
  */
-std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool conservative)
+std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool conservative,std::string startFunctionSymbolName)
 {
     // 局部化
     std::map<std::string, std::set<std::string> > m_stillUsed;
@@ -723,7 +724,7 @@ std::list<ref<Rule> > Slicer::sliceStillUsed(std::list<ref<Rule> > rules, bool c
     init_m_functionIdx_m_idxFunction(m_functions,m_functionIdx,m_idxFunction);
     bool *m_calls= calc_m_calls(rules,m_numFunctions,m_functionIdx);
 
-    std::set<std::string> reachableFuns = computeReachableFuns(rules);
+    std::set<std::string> reachableFuns = computeReachableFuns(rules,startFunctionSymbolName);
     std::list<ref<Rule> > reachable;
     for (std::list<ref<Rule> >::iterator i = rules.begin(), e = rules.end(); i != e; ++i) {
         if (reachableFuns.find((*i)->getLeft()->getFunctionSymbol()) != reachableFuns.end()) {

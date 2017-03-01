@@ -38,9 +38,9 @@ public:
 
     static std::list<ref<Rule> > sliceConstraint(std::list<ref<Rule> > rules);
 
-    static std::list<ref<Rule> > sliceDefined(std::list<ref<Rule> > rules);
+    static std::list<ref<Rule> > sliceDefined(std::list<ref<Rule> > rules,std::string startFunctionSymbolName);
 
-    static std::list<ref<Rule> > sliceStillUsed(std::list<ref<Rule> > rules, bool conservative);
+    static std::list<ref<Rule> > sliceStillUsed(std::list<ref<Rule> > rules, bool conservative,std::string startFunctionSymbolName);
 
     static std::list<ref<Rule> > sliceTrivialNondefConstraints(std::list<ref<Rule> > rules);
 
@@ -108,7 +108,7 @@ public:
                                               std::map<std::string, unsigned int> m_functionIdx);
     static std::set<unsigned int> getNotNeeded(std::string f, std::list<std::string> vars,std::map<std::string, std::set<std::string> >,unsigned int m_numFunctions,bool* m_proceeds,std::map<unsigned int, std::string>& m_idxFunction,std::map<std::string, unsigned int>  m_functionIdx);
 
-    static std::set<std::string> computeReachableFuns(std::list<ref<Rule> > rules);
+    static std::set<std::string> computeReachableFuns(std::list<ref<Rule> > rules,std::string startFunctionSymbolName);
 
     static bool isRecursiveCall(std::string f);
     static bool isNondef(std::string v);

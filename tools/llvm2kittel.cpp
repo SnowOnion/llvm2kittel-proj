@@ -563,15 +563,17 @@ int main(int argc, char *argv[])
     printRules(condensedRules,"condensedRules");
 
     auto& rulesToSlice = myKittelizedRulesIsoVarAndFunc; /// 配置位置 2/2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // 这里假定第一条rule的左边是最开始。
+    std::string startFunctionSymbolName = rulesToSlice.front()->getLeft()->getFunctionSymbol();
 
     std::list<ref<Rule> > slicedRules;
     slicedRules=Slicer::sliceUsage(rulesToSlice);
     printRules(slicedRules,"[1/6] after sliceUsage");
     slicedRules = Slicer::sliceConstraint(slicedRules);
     printRules(slicedRules,"[2/6] after sliceConstraint");
-    slicedRules = Slicer::sliceDefined(slicedRules);
+    slicedRules = Slicer::sliceDefined(slicedRules,startFunctionSymbolName);
     printRules(slicedRules,"[3/6] after sliceDefined");
-    slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing);
+    slicedRules = Slicer::sliceStillUsed(slicedRules, conservativeSlicing,startFunctionSymbolName);
     printRules(slicedRules,"[4/6] after sliceStillUsed");
     slicedRules = Slicer::sliceTrivialNondefConstraints(slicedRules);
     printRules(slicedRules,"[5/6] after sliceTrivialNondefConstraints");

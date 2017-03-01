@@ -1,4 +1,4 @@
-#define THE_GIT_SHA1 "7bda137aea4a2526398ff1ae005a033b9000c8cc-dirty"
+#define THE_GIT_SHA1 "2920f6151654ee2f716e34b61c9683f824a3326b-dirty"
 
 static const char GIT_SHA1[] = THE_GIT_SHA1;
 
