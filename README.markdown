@@ -140,6 +140,7 @@ myKittelizedRulesIsoVarAndFunc // 状态(还是叫函数？)同构地改名，�
 
 ### 1. myKittelizedRulesWithMoreVar
 
+```
 ====Outputting myKittelizedRulesWithMoreVar:
 eval_main_start(v_y.0, v_r.0, v_1, baka) -> eval_main_bb0_in(v_y.0, v_r.0, v_1, baka)
 eval_main_bb0_in(v_y.0, v_r.0, v_1, baka) -> eval_main_bb1_in(nondef.0, 1, v_1, baka)
@@ -154,9 +155,11 @@ eval_main_bb1_in(v_y.0) -> eval_main_bb1_in(v_y.0 - 1) [ v_y.0 > 0 ]
 eval_main_bb1_in(v_y.0) -> eval_main_bb2_in() [ v_y.0 <= 0 ]
 eval_main_bb2_in() -> eval_main_stop()
 ====Outputting [6/6] after sliceDuplicates done.
+```
 
 ### 2. myKittelizedRulesIsomorphismVar
 
+```
 ====Outputting myKittelizedRulesIsomorphismVar:
 eval_main_start(yyy, rrr, ichi) -> eval_main_bb0_in(yyy, rrr, ichi)
 eval_main_bb0_in(yyy, rrr, ichi) -> eval_main_bb1_in(nondef.0, 1, ichi)
@@ -171,9 +174,11 @@ eval_main_bb1_in(yyy) -> eval_main_bb1_in(yyy - 1) [ yyy > 0 ]
 eval_main_bb1_in(yyy) -> eval_main_bb2_in() [ yyy <= 0 ]
 eval_main_bb2_in() -> eval_main_stop()
 ====Outputting [6/6] after sliceDuplicates done.
+```
 
 ### 3. myKittelizedRulesIsoVarAndFunc
 
+```
 ====Outputting myKittelizedRulesIsoVarAndFunc:
 state0(yyy, rrr, ichi) -> state1(yyy, rrr, ichi)
 state1(yyy, rrr, ichi) -> state2(nondef.0, 1, ichi)
@@ -188,6 +193,7 @@ state2(yyy) -> state2(yyy - 1) [ yyy > 0 ]
 state2(yyy) -> state3() [ yyy <= 0 ]
 state3() -> state4()
 ====Outputting [6/6] after sliceDuplicates done.
+```
 
 ## Author
 
